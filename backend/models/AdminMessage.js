@@ -100,6 +100,10 @@ class AdminMessage {
       where += ' AND m.deleted_by_school_at IS NULL';
     }
 
+    const replyVisibility = role === 'super_admin'
+      ? 'r.deleted_by_super_admin_at IS NULL'
+      : 'r.deleted_by_school_at IS NULL';
+
     const [rows] = await pool.execute(`
       SELECT
         m.message_id,
@@ -113,31 +117,41 @@ class AdminMessage {
         m.seen_by_super_admin_at,
         m.seen_by_school_at,
         m.created_at,
-        COUNT(r.message_id) AS reply_count,
-        MAX(COALESCE(r.created_at, m.created_at)) AS last_activity_at
+        COUNT(CASE WHEN ${replyVisibility} THEN r.message_id END) AS reply_count,
+        MAX(CASE WHEN ${replyVisibility} THEN r.created_at ELSE NULL END) AS latest_reply_at,
+        m.created_at AS root_created_at
       FROM admin_messages m
       LEFT JOIN admin_messages r ON r.parent_id = m.message_id
       ${where}
       GROUP BY m.message_id
-      ORDER BY last_activity_at DESC
+      ORDER BY COALESCE(latest_reply_at, root_created_at) DESC
       LIMIT 80
     `, values);
 
-    return rows;
+    return rows.map(({ latest_reply_at, root_created_at, ...thread }) => ({
+      ...thread,
+      last_activity_at: latest_reply_at || root_created_at
+    }));
   }
 
   static async getThread(id, { role, school_id } = {}) {
     await this.ensureTable();
     const root = await this.findById(id);
-    if (!root) return null;
+    if (!root || root.parent_id !== null) return null;
     if (role !== 'super_admin' && Number(root.school_id || 0) !== Number(school_id || 0)) return null;
+    if (role === 'super_admin' && root.deleted_by_super_admin_at) return null;
+    if (role !== 'super_admin' && root.deleted_by_school_at) return null;
+
+    const replyVisibility = role === 'super_admin'
+      ? 'deleted_by_super_admin_at IS NULL'
+      : 'deleted_by_school_at IS NULL';
 
     const [replies] = await pool.execute(`
       SELECT message_id, parent_id, school_id, sender_user_id, sender_role, sender_name,
         sender_email, subject, message, status, seen_by_super_admin_at, seen_by_school_at,
         created_at
       FROM admin_messages
-      WHERE parent_id = ?
+      WHERE parent_id = ? AND ${replyVisibility}
       ORDER BY created_at ASC
     `, [id]);
 
