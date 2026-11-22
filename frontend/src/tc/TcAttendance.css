@@ -1,0 +1,11 @@
+.att-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  border-radius: 8px; border: 1px solid #DCE5F0; background: #fff;
+  padding: 5px 10px; font-size: 12px; font-weight: 600; color: #627D98;
+  transition: all .12s ease;
+}
+.att-btn:hover { border-color: #1769E0; color: #1769E0; }
+.att-btn.on-green { background: #18B981; border-color: #18B981; color: #fff; }
+.att-btn.on-red { background: #EF4444; border-color: #EF4444; color: #fff; }
+.att-btn.on-amber { background: #F59E0B; border-color: #F59E0B; color: #fff; }
+.att-btn.on-blue { background: #1769E0; border-color: #1769E0; color: #fff; }

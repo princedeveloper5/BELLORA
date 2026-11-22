@@ -1,0 +1,4 @@
+.tt-th { padding: 10px 12px; text-align: left; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: #627D98; background: #f8fafd; border-bottom: 1px solid #e9eff8; }
+.tt-time { padding: 8px 12px; border-bottom: 1px solid #f0f4fa; border-right: 1px solid #f0f4fa; display: flex; flex-direction: column; gap: 1px; background: #fbfcfe; vertical-align: top; }
+.tt-cell { padding: 6px 8px; border-bottom: 1px solid #f0f4fa; border-right: 1px solid #f0f4fa; vertical-align: top; min-width: 150px; }
+@media print { aside, header, footer, .sa-btn { display: none !important; } }

@@ -1,0 +1,75 @@
+/* Component-level styles that were <style scoped> in the Vue source. */
+
+.panta-logo-mark {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #fff;
+}
+
+/* ---- Sidebar ---- */
+.app-side-scroll::-webkit-scrollbar { width: 5px; }
+.app-side-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,.14); border-radius: 4px; }
+
+.side-item {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  padding: 11px 14px; border-radius: 12px;
+  font-size: 13.5px; font-weight: 500; color: #94a3b8;
+  transition: background .15s ease, color .15s ease;
+  cursor: pointer; position: relative;
+  border: 0; background: transparent; text-align: left;
+}
+.side-item:hover { background: rgba(30, 41, 59, .5); color: #fff; }
+.side-item:hover .side-icon { color: #fff; }
+.side-item.on { background: #0F9D8A; color: #fff; box-shadow: 0 8px 18px rgba(15, 157, 138, .24); }
+.side-item.on .side-icon { color: #fff; }
+.side-item.on-parent { color: #fff; background: rgba(30, 41, 59, .5); }
+.side-item.collapsed { justify-content: center; padding: 12px 0; }
+
+.side-icon { display: grid; place-items: center; width: 22px; height: 22px; color: #8ba3c0; flex-shrink: 0; transition: color .15s ease; }
+
+.side-badge {
+  min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px;
+  background: #ef4444; color: #fff; font-size: 10.5px; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+
+.side-sub {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 8px 12px; border-radius: 10px;
+  font-size: 12.8px; font-weight: 500; color: #94a3b8;
+  transition: background .15s ease, color .15s ease; cursor: pointer;
+  border: 0; background: transparent; text-align: left;
+}
+.side-sub:hover { background: rgba(30, 41, 59, .5); color: #fff; }
+.side-sub.on { background: #0F9D8A; color: #fff; }
+
+/* Collapsed-mode tooltips */
+[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute; left: calc(100% + 12px); top: 50%; translate: 0 -50%;
+  background: #1e293b; color: #fff; font-size: 12px; font-weight: 600;
+  padding: 6px 10px; border-radius: 8px; white-space: nowrap; z-index: 60;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .35); pointer-events: none;
+}
+
+/* ---- Table pagination ---- */
+.sa-page-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 30px; padding: 0 6px; border-radius: 8px; border: 1px solid #dde6f2;
+  background: #fff; color: #102A43; font-size: 12.5px; font-weight: 600;
+  transition: all .15s ease; cursor: pointer;
+}
+.sa-page-btn:hover:not(:disabled) { border-color: #1769E0; color: #1769E0; }
+.sa-page-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ---- Transitions ---- */
+.sa-modal-enter { animation: sa-modal-fade .18s ease; }
+.sa-modal-panel { animation: sa-modal-pop .18s ease; }
+.sa-menu-enter { animation: sa-menu-in .12s ease; }
+
+@keyframes sa-modal-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sa-modal-pop { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes sa-menu-in { from { opacity: 0; transform: translateY(-4px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }

@@ -1,0 +1,506 @@
+.teacher-settings-page {
+  min-height: 100vh;
+  padding: 1.5rem;
+  background: #f8fafc;
+  font-family: var(--app-font);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.settings-wrap {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.settings-intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid #dbe3ef;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f8fbff, #ffffff 55%, #eef7f1);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #0f9d8a;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.settings-intro h1 {
+  margin: 0 0 0.35rem;
+  color: #102a43;
+  font-size: 1.8rem;
+  line-height: 1.1;
+  font-weight: 900;
+}
+
+.settings-intro p {
+  max-width: 720px;
+  margin: 0;
+  color: #52627a;
+}
+
+.profile-link,
+.quick-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 42px;
+  padding: 0.65rem 0.9rem;
+  border-radius: 8px;
+  background: #0f9d8a;
+  color: #ffffff;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.settings-shell {
+  display: grid;
+  grid-template-columns: 270px minmax(0, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.settings-nav {
+  display: grid;
+  align-content: start;
+  gap: 0.65rem;
+  padding: 0.75rem;
+  border: 1px solid #dbe3ef;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.settings-nav-item {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 0 0.65rem;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: #475569;
+  text-align: left;
+}
+
+.settings-icon {
+  grid-row: span 2;
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  color: #0f9d8a;
+  background: #e7f5f2;
+}
+
+.settings-icon.violet { color: #1769e0; background: #eaf3ff; }
+.settings-icon.green { color: #15803d; background: #dcfce7; }
+.settings-icon.blue { color: #0b7f70; background: #e7f5f2; }
+.settings-icon.amber { color: #b45309; background: #fef3c7; }
+.settings-icon.teal { color: #0f766e; background: #ccfbf1; }
+
+.settings-nav-item span {
+  color: #102a43;
+  font-weight: 900;
+}
+
+.settings-nav-item small {
+  color: #64748b;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.settings-nav-item.active,
+.settings-nav-item:hover {
+  border-color: #cfe9e4;
+  background: #f2f9f8;
+}
+
+.settings-content {
+  min-width: 0;
+}
+
+.settings-panel,
+.settings-skeleton {
+  padding: 1.25rem;
+  border: 1px solid #dbe3ef;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.15rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #dce5f0;
+}
+
+.panel-heading h2 {
+  margin: 0 0 0.35rem;
+  color: #102a43;
+  font-size: 1.25rem;
+  line-height: 1.16;
+  font-weight: 900;
+}
+
+.panel-heading p {
+  margin: 0;
+  color: #64748b;
+}
+
+.profile-preview {
+  width: 76px;
+  height: 76px;
+  flex: 0 0 76px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #e7f5f2;
+  color: #334155;
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+
+.profile-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.form-grid,
+.preference-grid,
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.form-grid.compact {
+  margin: 1rem 0;
+}
+
+label {
+  display: grid;
+  gap: 0.45rem;
+  color: #102a43;
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+label span {
+  overflow-wrap: anywhere;
+}
+
+.form-control,
+.form-select {
+  min-height: 42px;
+  border-color: #cbd5e1;
+  border-radius: 8px;
+}
+
+.upload-row {
+  margin: 1rem 0;
+}
+
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.day-chip,
+.toggle-card,
+.preference-card {
+  min-height: 74px;
+  padding: 0.85rem;
+  border: 1px solid #dbe3ef;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.day-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.day-chip:has(input:checked),
+.toggle-card:has(input:checked) {
+  border-color: #60a5fa;
+  background: #f2f9f8;
+}
+
+.toggle-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.toggle-card input {
+  margin-top: 0.2rem;
+}
+
+.toggle-card strong {
+  display: block;
+  color: #102a43;
+}
+
+.toggle-card small {
+  color: #64748b;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-field .form-control {
+  padding-right: 3rem;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.35rem;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #0f9d8a;
+}
+
+.security-tips {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border: 1px solid #dbe3ef;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.security-tips h3 {
+  margin: 0 0 0.65rem;
+  font-size: 1rem;
+  line-height: 1.2;
+  font-weight: 900;
+}
+
+.security-tips ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #475569;
+}
+
+.save-note {
+  margin: 1rem 0 0;
+  color: #15803d;
+  font-weight: 800;
+}
+
+.settings-skeleton {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.settings-skeleton .skeleton-line,
+.settings-skeleton .skeleton-box {
+  height: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #e7f5f2 0%, #f8fafc 40%, #e7f5f2 100%);
+  background-size: 220% 100%;
+  animation: loadingShimmer 1.2s ease-in-out infinite;
+}
+
+.settings-skeleton .title {
+  width: 40%;
+  height: 24px;
+}
+
+.settings-skeleton .skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.settings-skeleton .skeleton-box {
+  height: 84px;
+  border-radius: 8px;
+}
+
+@keyframes loadingShimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+body.teacher-dark-mode .teacher-settings-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top right, rgba(14, 165, 233, 0.12), transparent 30rem),
+    linear-gradient(135deg, #020617 0%, #0b1120 48%, #102a43 100%) !important;
+  color: #e5edf7 !important;
+}
+
+body.teacher-dark-mode .settings-wrap,
+body.teacher-dark-mode .settings-shell,
+body.teacher-dark-mode .settings-content {
+  background: transparent !important;
+  color: #e5edf7 !important;
+}
+
+body.teacher-dark-mode .settings-intro,
+body.teacher-dark-mode .settings-nav,
+body.teacher-dark-mode .settings-panel,
+body.teacher-dark-mode .settings-skeleton,
+body.teacher-dark-mode .day-chip,
+body.teacher-dark-mode .toggle-card,
+body.teacher-dark-mode .preference-card,
+body.teacher-dark-mode .security-tips {
+  background: #102a43 !important;
+  border-color: #243244 !important;
+  color: #e5edf7 !important;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34) !important;
+}
+
+body.teacher-dark-mode .settings-skeleton .skeleton-line,
+body.teacher-dark-mode .settings-skeleton .skeleton-box {
+  background: linear-gradient(90deg, #102a43 0%, #1e293b 42%, #102a43 100%) !important;
+  background-size: 220% 100% !important;
+}
+
+body.teacher-dark-mode .settings-intro h1,
+body.teacher-dark-mode .panel-heading h2,
+body.teacher-dark-mode .settings-nav-item span,
+body.teacher-dark-mode .toggle-card strong,
+body.teacher-dark-mode .preference-card span,
+body.teacher-dark-mode label,
+body.teacher-dark-mode .security-tips h3 {
+  color: #f8fafc !important;
+}
+
+body.teacher-dark-mode .settings-intro p,
+body.teacher-dark-mode .panel-heading p,
+body.teacher-dark-mode .settings-nav-item small,
+body.teacher-dark-mode .toggle-card small,
+body.teacher-dark-mode .security-tips ul {
+  color: #cbd5e1 !important;
+}
+
+body.teacher-dark-mode .panel-heading {
+  border-bottom-color: #243244 !important;
+}
+
+body.teacher-dark-mode .settings-nav-item {
+  color: #cbd5e1 !important;
+}
+
+body.teacher-dark-mode .settings-icon,
+body.teacher-dark-mode .eyebrow,
+body.teacher-dark-mode .password-toggle {
+  color: #93c5fd !important;
+}
+
+body.teacher-dark-mode .settings-icon {
+  background: rgba(96, 165, 250, 0.16) !important;
+}
+
+body.teacher-dark-mode .settings-nav-item.active,
+body.teacher-dark-mode .settings-nav-item:hover,
+body.teacher-dark-mode .day-chip:has(input:checked),
+body.teacher-dark-mode .toggle-card:has(input:checked) {
+  background: #172554 !important;
+  border-color: #0f9d8a !important;
+}
+
+body.teacher-dark-mode .form-control,
+body.teacher-dark-mode .form-select,
+body.teacher-dark-mode textarea,
+body.teacher-dark-mode input:not([type="checkbox"]):not([type="radio"]):not([type="file"]) {
+  background: #0b1220 !important;
+  border-color: #334155 !important;
+  color: #e5edf7 !important;
+}
+
+body.teacher-dark-mode .form-control::placeholder,
+body.teacher-dark-mode textarea::placeholder,
+body.teacher-dark-mode input::placeholder {
+  color: #94a3b8 !important;
+}
+
+body.teacher-dark-mode .profile-preview {
+  background: #0b1220 !important;
+  border-color: #334155 !important;
+  color: #e7f5f2 !important;
+}
+
+body.teacher-dark-mode .save-note {
+  color: #86efac !important;
+}
+
+@media (max-width: 900px) {
+  .settings-shell,
+  .form-grid,
+  .preference-grid,
+  .security-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .days-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .teacher-settings-page {
+    padding: 1rem;
+  }
+
+  .settings-intro,
+  .panel-heading {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .settings-nav,
+  .days-grid {
+    grid-template-columns: 1fr;
+  }
+}

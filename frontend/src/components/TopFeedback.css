@@ -1,0 +1,156 @@
+.top-feedback {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100000;
+  pointer-events: none;
+}
+
+.top-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  overflow: hidden;
+  background: rgba(15, 157, 138, 0.16);
+}
+
+.top-progress span {
+  display: block;
+  width: 42%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0b7f70, #20b8a2);
+  animation: progress-slide 1.05s ease-in-out infinite;
+}
+
+.panta-notification-stack {
+  position: fixed;
+  top: 5.25rem;
+  right: 1rem;
+  left: auto;
+  transform: none;
+  display: grid;
+  gap: 0.65rem;
+  width: min(420px, calc(100vw - 2rem));
+}
+
+.panta-notification {
+  pointer-events: auto;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.9rem;
+  align-items: flex-start;
+  padding: 1rem 1.05rem;
+  border: 1px solid #dbe5f3;
+  border-left-width: 5px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.18);
+  color: #172033;
+  animation: panta-notice-in .22s ease;
+}
+
+.panta-notification strong {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-size: 0.9rem;
+}
+
+.panta-notification p {
+  margin: 0;
+  color: #475569;
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.panta-notification button {
+  width: 26px;
+  height: 26px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #64748b;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.panta-notification.success {
+  border-color: #bbf7d0;
+  border-left-color: #18B981;
+  background: #f0fdf4;
+}
+
+.panta-notification.error {
+  border-color: #fecaca;
+  border-left-color: #dc2626;
+  background: #fef2f2;
+}
+
+.panta-notification.info {
+  border-color: #cfe6e1;
+  border-left-color: #0f9d8a;
+  background: #edf7f5;
+}
+
+.panta-notification.warning {
+  border-color: #fde68a;
+  border-left-color: #f59e0b;
+  background: #fffbeb;
+}
+
+.panta-notification-progress {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background: rgba(15, 23, 42, 0.08);
+}
+
+.panta-notification-progress span {
+  display: block;
+  width: 1%;
+  height: 100%;
+  transition: width 0.08s linear;
+}
+
+.panta-notification.success .panta-notification-progress span { background: #18B981; }
+.panta-notification.error .panta-notification-progress span { background: #dc2626; }
+.panta-notification.info .panta-notification-progress span { background: #0f9d8a; }
+.panta-notification.warning .panta-notification-progress span { background: #f59e0b; }
+
+body.admin-dark-mode .panta-notification {
+  border-color: #334155;
+  background: #172033;
+  color: #f8fafc;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+}
+
+body.admin-dark-mode .panta-notification p,
+body.admin-dark-mode .panta-notification button { color: #cbd5e1; }
+
+@keyframes progress-slide {
+  0% { transform: translateX(-110%); }
+  100% { transform: translateX(260%); }
+}
+
+@keyframes panta-notice-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 640px) {
+  .panta-notification-stack {
+    top: 76px;
+    right: 10px;
+    left: 10px;
+    transform: none;
+    width: auto;
+  }
+}

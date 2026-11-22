@@ -1,0 +1,78 @@
+/* PANTA Super Admin — shared primitives (imported once by SaLayout). */
+
+.sa-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  border-radius: 10px; padding: 9px 16px; font-size: 13.5px; font-weight: 600;
+  border: 1px solid transparent; cursor: pointer; transition: all .15s ease;
+  white-space: nowrap;
+}
+.sa-btn:disabled { opacity: .55; cursor: not-allowed; }
+.sa-btn.primary { background: #0F9D8A; color: #fff; box-shadow: 0 4px 12px rgba(15, 157, 138, .22); }
+.sa-btn.primary:hover:not(:disabled) { background: #0B7F70; }
+.sa-btn.danger { background: #EF4444; color: #fff; }
+.sa-btn.danger:hover:not(:disabled) { background: #b91c1c; }
+.sa-btn.ghost { background: #fff; color: #102A43; border-color: #d5e0ef; }
+.sa-btn.ghost:hover:not(:disabled) { border-color: #0F9D8A; color: #0B7F70; }
+.sa-btn.soft { background: #E7F5F2; color: #0B7F70; }
+.sa-btn.soft:hover:not(:disabled) { background: #d5eee9; }
+.sa-btn.sm { padding: 6px 11px; font-size: 12.5px; border-radius: 8px; }
+
+.sa-input, .sa-select {
+  width: 100%; border-radius: 10px; border: 1px solid #d5e0ef; background: #fff;
+  padding: 9px 12px; font-size: 13.5px; color: #102A43; transition: all .15s ease;
+}
+.sa-input:focus, .sa-select:focus {
+  outline: none; border-color: #0F9D8A; box-shadow: 0 0 0 3px rgba(15, 157, 138, .14);
+}
+.sa-input::placeholder { color: #829AB1; }
+.sa-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237a8dab' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 32px; }
+.sa-input.err, .sa-select.err { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239, 68, 68, .12); }
+
+.sa-label { display: block; font-size: 12.5px; font-weight: 600; color: #102A43; margin-bottom: 6px; }
+.sa-label .req { color: #EF4444; }
+.sa-err { font-size: 12px; color: #EF4444; margin-top: 5px; }
+
+.sa-card {
+  background: #fff; border: 1px solid #DCE5F0; border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(15, 37, 73, .05);
+}
+.sa-card-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 16px 20px; border-bottom: 1px solid #eef2f9;
+}
+.sa-card-title { font-size: 15px; font-weight: 700; color: #102A43; display: flex; align-items: center; gap: 8px; }
+.sa-card-sub { font-size: 12.5px; color: #627D98; margin-top: 2px; }
+
+.sa-tab {
+  padding: 8px 14px; border-radius: 9px; font-size: 13px; font-weight: 600;
+  color: #627D98; transition: all .15s ease; white-space: nowrap;
+}
+.sa-tab:hover { color: #102A43; background: #f1f5fb; }
+.sa-tab.on { background: #0F9D8A; color: #fff; box-shadow: 0 3px 8px rgba(15, 157, 138, .24); }
+
+.sa-icon-btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 10px; color: #627D98;
+  transition: all .15s ease;
+}
+.sa-icon-btn:hover { background: #f1f5fb; color: #102A43; }
+
+/* ---- Search dropdown kinds ---- */
+.sa-search-kind {
+  flex-shrink: 0; font-size: 9.5px; font-weight: 800; letter-spacing: .05em;
+  padding: 3px 7px; border-radius: 6px; text-transform: uppercase;
+}
+.k-school { background: #E7F5F2; color: #0F9D8A; }
+.k-user { background: #E7F5F2; color: #0B7F70; }
+.k-subject { background: #F0EEFF; color: #6D5CE7; }
+.k-timetable { background: #FFF7E6; color: #b07409; }
+
+/* ---- Charts ---- */
+.sa-chart-tick { font-size: 10.5px; fill: #829AB1; font-weight: 600; }
+
+/* ---- Toasts ---- */
+@keyframes sa-toast-in {
+  from { opacity: 0; transform: translateY(10px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.sa-toast-enter { animation: sa-toast-in .18s ease-out both; }

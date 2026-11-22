@@ -1,0 +1,155 @@
+/* Aligns legacy shared-admin page headers with the console design language
+   (page title + muted subtitle, no floating header card). */
+
+.page-header,
+.students-page .page-header {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 0 4px !important;
+  margin: 0 0 4px;
+  align-items: flex-start;
+}
+
+.announcements-page .page-header > div:first-child,
+.notifications-page .page-header > div:first-child {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.page-header h1,
+.students-page .page-header h1 {
+  margin: 0 !important;
+  color: #102a43 !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em;
+}
+
+.page-header p,
+.students-page .page-header p {
+  margin: 0 !important;
+  color: #627d98 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+/* Teacher workspace pages: use the same plain page header as the console. */
+.studio-header,
+.notifications-hero,
+.counter-hero,
+.profile-header,
+.settings-intro {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 0 1.25rem !important;
+  align-items: flex-start;
+}
+
+.studio-header h1,
+.notifications-hero h1,
+.counter-hero h1,
+.profile-header h1,
+.settings-intro h1 {
+  margin: 0 0 4px !important;
+  color: #102a43 !important;
+  font-size: 22px !important;
+  line-height: 1.2 !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em;
+}
+
+.studio-subtitle,
+.notifications-hero p,
+.counter-hero p,
+.profile-header p,
+.settings-intro p {
+  margin: 0 !important;
+  color: #627d98 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 2px;
+  color: #0f9d8a !important;
+  font-size: 10.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.14em !important;
+}
+
+.students-page .students-toolbar,
+.students-page .students-table-panel,
+.students-page .students-student-detail-panel,
+.students-page .students-student-form,
+.students-page .students-mode-panel,
+.announcements-page .summary-grid article,
+.announcements-page .composer-panel,
+.announcements-page .announcements-panel,
+.announcements-page .announcement-card,
+.notifications-page .summary-grid article,
+.notifications-page .notifications-panel,
+.notifications-page .messages-panel {
+  border-radius: 12px;
+  border-color: #dce5f0;
+}
+
+/* Surface pass: every large card shares one radius and one border tone. */
+.timetable-summary article,
+.panel-card,
+.timetable-output-card,
+.teacher-metrics article,
+.counter-stage,
+.summary-grid article,
+.notifications-list-panel,
+.notification-detail-panel,
+.settings-panel,
+.settings-skeleton,
+.settings-nav,
+.security-tips,
+.profile-section,
+.info-card,
+.security-card,
+.preference-card,
+.toggle-card,
+.day-chip {
+  border-radius: 12px !important;
+  border-color: #dce5f0 !important;
+}
+
+.lesson-card,
+.module-cell,
+.day-lesson-card,
+.free-period,
+.settings-nav button,
+.settings-panel .form-control,
+.settings-panel .form-select {
+  border-radius: 10px !important;
+}
+
+.page-header .page-actions .btn,
+.page-header .page-actions button {
+  border-radius: 10px;
+}
+
+.teachers-container .teacher-card-custom > .d-flex:first-child h2 {
+  margin: 0 0 2px !important;
+  color: #102a43;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em;
+}
+
+.teachers-container .teacher-page-subtitle {
+  margin: 0;
+  color: #627d98;
+  font-size: 13px;
+  font-weight: 600;
+}

@@ -1,0 +1,27 @@
+/* PANTA theme tokens as CSS variables (mirrors theme.js). */
+:root {
+  --panta-navy: #12304a;
+  --panta-deep-navy: #0b2235;
+  --panta-sidebar: #102b42;
+  --panta-sidebar-text: #c2d3df;
+  --panta-teal: #0f9d8a;
+  --panta-teal-dark: #0b7f70;
+  --panta-bright: #20b8a2;
+  --panta-light-blue: #e7f5f2;
+  --panta-bg: #f4f7fb;
+  --panta-card: #ffffff;
+  --panta-border: #d8e5ec;
+  --panta-text: #1d2b3a;
+  --panta-muted: #64748b;
+  --panta-radius: 16px;
+  --panta-sidebar-w: 248px;
+  --panta-header-h: 68px;
+}
+
+.panta-primary-btn {
+  background: var(--panta-teal) !important;
+  color: #fff !important;
+}
+.panta-primary-btn:hover:not(:disabled) {
+  background: var(--panta-teal-dark) !important;
+}

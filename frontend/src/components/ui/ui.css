@@ -1,0 +1,263 @@
+/* ---------------------------------------------------------------------------
+   Shared state / modal primitives used across every workspace.
+--------------------------------------------------------------------------- */
+
+.loading-state {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1rem;
+  border: 1px solid #dbe5f3;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.skeleton-row {
+  height: 48px;
+  border-radius: 7px;
+  background: linear-gradient(90deg, #edf2f7 25%, #f8fafc 45%, #edf2f7 65%);
+  background-size: 220% 100%;
+  animation: skeleton 1.2s ease-in-out infinite;
+}
+
+.app-state {
+  display: grid;
+  justify-items: center;
+  gap: 0.7rem;
+  min-height: 190px;
+  padding: 2rem 1.25rem;
+  border: 1px solid #dbe5f3;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #172033;
+  text-align: center;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+  animation: state-enter 0.18s ease both;
+}
+
+.app-state-error {
+  min-height: 220px;
+}
+
+.state-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #dbeafe, #eff6ff);
+  border: 1px solid #bfdbfe;
+}
+
+.app-state-error .state-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 1.45rem;
+  font-weight: 900;
+}
+
+.state-copy {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.app-state h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 1.12rem;
+  font-weight: 850;
+}
+
+.app-state-error h2 {
+  font-size: 1.15rem;
+}
+
+.app-state p {
+  max-width: 520px;
+  margin: 0;
+  color: #64748b;
+  font-weight: 650;
+}
+
+.state-action {
+  min-height: 40px;
+  border: 0;
+  border-radius: 7px;
+  padding: 0.65rem 1rem;
+  background: #0f9d8a;
+  color: #fff;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.state-action:hover,
+.state-action:focus-visible {
+  background: #0b7f70;
+  outline: none;
+}
+
+/* ---- Confirm modal ---- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.52);
+  backdrop-filter: blur(5px);
+  animation: modal-fade 0.16s ease;
+}
+
+.confirm-modal {
+  width: min(100%, 440px);
+  border: 1px solid #dbe5f3;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #172033;
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.28);
+  padding: 1.2rem;
+  outline: none;
+  animation: modal-pop 0.16s ease;
+}
+
+.confirm-modal header,
+.confirm-modal footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.confirm-modal h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 1.18rem;
+  font-weight: 850;
+}
+
+.confirm-modal p {
+  margin: 0.75rem 0 1.25rem;
+  color: #64748b;
+  font-weight: 650;
+}
+
+.icon-close {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 7px;
+  background: #f1f5f9;
+  color: #334155;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.cancel-btn,
+.confirm-btn {
+  min-height: 40px;
+  border: 0;
+  border-radius: 7px;
+  padding: 0.65rem 1rem;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.confirm-btn {
+  background: #0f9d8a;
+  color: #ffffff;
+}
+
+.confirm-btn.danger {
+  background: var(--bg-danger, #dc2626);
+}
+
+.cancel-btn:disabled,
+.confirm-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.confirm-modal button:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.3);
+  outline-offset: 2px;
+}
+
+/* ---- Dark mode ---- */
+
+body.admin-dark-mode .loading-state,
+body.teacher-dark-mode .loading-state,
+body.admin-dark-mode .app-state,
+body.teacher-dark-mode .app-state {
+  background: #111827;
+  border-color: #243244;
+  color: #e5edf7;
+}
+
+body.admin-dark-mode .skeleton-row,
+body.teacher-dark-mode .skeleton-row {
+  background: linear-gradient(90deg, #172033 25%, #243244 45%, #172033 65%);
+  background-size: 220% 100%;
+}
+
+body.admin-dark-mode .app-state h2,
+body.teacher-dark-mode .app-state h2 {
+  color: #f8fafc;
+}
+
+body.admin-dark-mode .app-state p,
+body.teacher-dark-mode .app-state p {
+  color: #cbd5e1;
+}
+
+body.admin-dark-mode .confirm-modal,
+body.teacher-dark-mode .confirm-modal {
+  background: #111827;
+  border-color: #243244;
+  color: #e5edf7;
+}
+
+body.admin-dark-mode .confirm-modal h2,
+body.teacher-dark-mode .confirm-modal h2 {
+  color: #f8fafc;
+}
+
+body.admin-dark-mode .confirm-modal p,
+body.teacher-dark-mode .confirm-modal p {
+  color: #cbd5e1;
+}
+
+body.admin-dark-mode .icon-close,
+body.teacher-dark-mode .icon-close,
+body.admin-dark-mode .cancel-btn,
+body.teacher-dark-mode .cancel-btn {
+  background: #243244;
+  color: #e5edf7;
+}
+
+@keyframes state-enter {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes skeleton {
+  to { background-position: -220% 0; }
+}
+
+@keyframes modal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modal-pop {
+  from { opacity: 0; transform: scale(0.97) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
