@@ -70,7 +70,7 @@ export default function ResetPassword() {
             className="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-2 brand-login-mark"
             style={{ width: 64, height: 64, background: '#e7f5f2', border: '1px solid rgba(15, 157, 138, .18)' }}
           >
-            <img className="brand-login-logo" src={`${import.meta.env.BASE_URL}panta-logo.png`} alt="PANTA logo" />
+            <img className="brand-login-logo" src={`${import.meta.env.BASE_URL}bellora-logo.svg`} alt="BELLORA logo" />
           </div>
 
           <h1 className="h3 fw-bold text-dark mb-1">Reset Password</h1>
@@ -172,7 +172,7 @@ export default function ResetPassword() {
 
         <div className="text-center pb-3">
           <p className="small text-muted mb-0">
-            © 2026 PANTA · All rights reserved
+            © 2026 BELLORA · All rights reserved
           </p>
           <p className="small text-muted mb-0">Version 1.0</p>
         </div>

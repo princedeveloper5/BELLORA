@@ -1,5 +1,5 @@
 // ============================================================================
-// PANTA Super Admin — central store.
+// BELLORA Super Admin — central store.
 //
 // API-FIRST: all data comes from the real backend (/api/sa/*, /api/schools/*,
 // /api/notifications/*). Mutations call the backend first; local state is
@@ -22,7 +22,7 @@ const LS_CONFLICTS = 'panta_sa_conflict_states'
 const LS_SETTINGS = 'panta_sa_settings'
 
 const DEFAULT_SETTINGS = {
-  platformName: 'PANTA',
+  platformName: 'BELLORA',
   supportEmail: 'support@panta.rw',
   defaultPlan: 'Standard',
   autoApproveSchools: false,

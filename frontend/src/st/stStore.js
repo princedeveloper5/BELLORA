@@ -1,4 +1,4 @@
-// PANTA Student console store — the authenticated student's own data (read-only).
+// BELLORA Student console store — the authenticated student's own data (read-only).
 import { createStore } from '@/stores/createStore'
 import api from '@/lib/api'
 

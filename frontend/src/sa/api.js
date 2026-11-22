@@ -1,5 +1,5 @@
 // ============================================================================
-// PANTA Super Admin — backend service layer.
+// BELLORA Super Admin — backend service layer.
 // All calls go through the shared axios instance (JWT attached automatically)
 // and normalize MySQL rows into the shapes the views consume.
 //

@@ -68,7 +68,7 @@ export default function SaSettings() {
     <SaLayout>
       <div className="mb-5">
         <h2 className="text-[20px] sm:text-[22px] font-extrabold tracking-tight">Platform Settings</h2>
-        <p className="text-[13px] text-[#627D98] mt-0.5">Global configuration for the PANTA platform.</p>
+        <p className="text-[13px] text-[#627D98] mt-0.5">Global configuration for the BELLORA platform.</p>
       </div>
 
       <div className="flex gap-1.5 mb-4 overflow-x-auto pb-1" role="tablist">

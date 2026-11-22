@@ -1,5 +1,5 @@
 // ============================================================================
-// PANTA Student console API (/api/student-console)
+// BELLORA Student console API (/api/student-console)
 // Serves the authenticated student's own data only (resolved from the JWT
 // user id, never from client-supplied ids). Students are read-only here.
 // ============================================================================

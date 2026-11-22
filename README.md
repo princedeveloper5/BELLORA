@@ -1,4 +1,4 @@
-﻿# PANTA School Management System
+# BELLORA School Management System
 
 The application is organized into a backend and a frontend:
 

@@ -1,5 +1,5 @@
 // ============================================================================
-// PANTA Super Admin — local data layer.
+// BELLORA Super Admin — local data layer.
 //
 // This module builds a deterministic, relationally-consistent dataset
 // (Schools -> Users/Teachers/Students/Classes/Rooms -> Timetables) and
@@ -37,7 +37,7 @@ const SCHOOLS = [
   ['Silverline Academy', 'SLA', 'Kigali', 'active', 'Premium', 'Claudine Ingabire', 6],
   ['New Dawn College', 'NDC', 'Nyamagabe', 'active', 'Basic', 'Innocent Twahirwa', 5],
   ['Cornerstone School', 'CTS', 'Bugesera', 'active', 'Standard', 'Beatrice Kamanzi', 4],
-  ['PANTA Model School', 'PMS', 'Kigali', 'active', 'Premium', 'Theogene Rutayisire', 3],
+  ['BELLORA Model School', 'PMS', 'Kigali', 'active', 'Premium', 'Theogene Rutayisire', 3],
   ['Kingsway High School', 'KWH', 'Kigali', 'pending', 'Standard', 'Vestine Uwineza', 0.4],
   ['Bluebird Academy', 'BBA', 'Rubavu', 'pending', 'Basic', 'Damascene Niyonkuru', 0.3],
   ['Summit Prep School', 'SPS', 'Musanze', 'pending', 'Standard', 'Jeannette Mugeni', 0.2],
@@ -67,7 +67,7 @@ const SUBJECTS = [
 const LEVELS = ['P4', 'P5', 'P6', 'S1', 'S2', 'S3', 'S4', 'S5', 'S6']
 
 const ACTIVITY_SEED = [
-  ['super_admin', 'Super Admin', 'Approved school', 'school', 'PANTA Model School', 0.04, 'success'],
+  ['super_admin', 'Super Admin', 'Approved school', 'school', 'BELLORA Model School', 0.04, 'success'],
   ['admin', 'Diane Uwase', 'Published timetable', 'timetable', 'Green Valley High School — Term 1', 0.1, 'success'],
   ['super_admin', 'Super Admin', 'Activated teacher account', 'user', 'Keza Iradukunda', 0.2, 'success'],
   ['system', 'System', 'Timetable conflict detected', 'conflict', 'Horizon High School', 0.3, 'warning'],
@@ -99,7 +99,7 @@ function generate() {
     classes: [], rooms: [], ttGroups: [], entries: [],
     activities: [], notifications: [], conflictStates: {},
     settings: {
-      platformName: 'PANTA', supportEmail: 'support@panta.rw', defaultPlan: 'Standard',
+      platformName: 'BELLORA', supportEmail: 'support@panta.rw', defaultPlan: 'Standard',
       autoApproveSchools: false, maintenanceMode: false, sessionTimeout: 30,
       emailNotifications: true, smsNotifications: false, conflictDetection: true,
       weeklyDigest: true, twoFactorRequired: false

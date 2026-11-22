@@ -4,7 +4,7 @@ import api from '@/stores/api'
 import './ForgotPassword.css'
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const logoUrl = `${import.meta.env.BASE_URL}panta-title-logo.png`
+const logoUrl = `${import.meta.env.BASE_URL}bellora-title-logo.svg`
 
 export default function ForgotPassword() {
   const navigate = useNavigate()
@@ -153,7 +153,7 @@ export default function ForgotPassword() {
           <div className="brand-login-mark">
             <img className="brand-login-logo" src={logoUrl} alt="School logo" />
           </div>
-          <h1 className="auth-title mb-0">PANTA</h1>
+          <h1 className="auth-title mb-0">BELLORA</h1>
         </div>
 
         <form onSubmit={handleSubmit} className="forgot-form">

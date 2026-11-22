@@ -138,9 +138,9 @@ export default function SaLayout({ children }) {
         drawer={drawer}
         onNavigate={closeDrawer}
         onLogout={() => setConfirmLogout(true)}
-        logoUrl={resolveAssetUrl(store.settings?.school_logo_url) || `${import.meta.env.BASE_URL}panta-logo.png`}
-        logoAlt={store.settings?.school_logo_url ? 'School logo' : 'PANTA logo'}
-        logoLabel="PANTA"
+        logoUrl={resolveAssetUrl(store.settings?.school_logo_url) || `${import.meta.env.BASE_URL}bellora-logo.svg`}
+        logoAlt={store.settings?.school_logo_url ? 'School logo' : 'BELLORA logo'}
+        logoLabel="BELLORA"
         logoSubtitle="Super Admin Console"
       />
 
@@ -305,7 +305,7 @@ export default function SaLayout({ children }) {
         <main className="grow p-3 sm:p-5 lg:p-6 max-w-[1600px] w-full mx-auto">{children}</main>
 
         <footer className="px-6 py-4 text-center text-[11.5px] text-[#829AB1] border-t border-[#e8eef7]">
-          PANTA Timetable Management System · Super Admin Console · {new Date().getFullYear()}
+          BELLORA Timetable Management System · Super Admin Console · {new Date().getFullYear()}
         </footer>
       </div>
 
@@ -323,7 +323,7 @@ export default function SaLayout({ children }) {
         <div className="space-y-3 text-[13.5px] text-[#102A43]">
           <p className="leading-relaxed">
             This console gives the Super Admin full control over schools, users, academic structures and timetables
-            across the PANTA platform.
+            across the BELLORA platform.
           </p>
           <div className="rounded-xl bg-[#f4f8fd] border border-[#DCE5F0] p-4 space-y-2.5">
             <p className="flex items-center gap-2.5">

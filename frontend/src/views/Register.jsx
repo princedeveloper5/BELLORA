@@ -7,7 +7,7 @@ import './Register.css'
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/
-const logoUrl = `${import.meta.env.BASE_URL}panta-title-logo.png`
+const logoUrl = `${import.meta.env.BASE_URL}bellora-title-logo.svg`
 
 const initialForm = {
   full_name: '',
@@ -260,7 +260,7 @@ export default function Register() {
             <img className="brand-login-logo" src={logoUrl} alt="School logo" />
           </div>
           <div className="register-brand-copy">
-            <h1 className="brand-title mb-0">PANTA</h1>
+            <h1 className="brand-title mb-0">BELLORA</h1>
             <span>Teacher registration</span>
           </div>
         </div>
@@ -269,7 +269,7 @@ export default function Register() {
           {step === 'details' ? (
             <>
               <h2 className="form-title">Create your teacher account</h2>
-              <p className="register-intro">Add your details and verify your email to request access to your school's PANTA workspace.</p>
+              <p className="register-intro">Add your details and verify your email to request access to your school's BELLORA workspace.</p>
               <div className="register-steps" aria-label="Registration progress">
                 <span className="register-step is-current"><b>1</b><span>Your details</span></span>
                 <i></i>
@@ -619,16 +619,16 @@ export default function Register() {
             <h2>{legalDoc === 'terms' ? 'Terms of Service' : 'Privacy Policy'}</h2>
             {legalDoc === 'terms' ? (
               <div className="legal-body">
-                <p>By creating a PANTA account you agree to use the platform only for legitimate school administration, teaching and learning activities.</p>
+                <p>By creating a BELLORA account you agree to use the platform only for legitimate school administration, teaching and learning activities.</p>
                 <p>You are responsible for keeping your login credentials private and for all activity performed under your account. Accounts must belong to a single person; shared logins are not permitted.</p>
                 <p>School data, timetables and results may only be accessed for the school you are registered with. Attempting to access other schools' records may result in suspension.</p>
-                <p>PANTA may update these terms as the platform evolves. Continued use after an update constitutes acceptance of the revised terms.</p>
+                <p>BELLORA may update these terms as the platform evolves. Continued use after an update constitutes acceptance of the revised terms.</p>
               </div>
             ) : (
               <div className="legal-body">
-                <p>PANTA stores the information you provide during registration (name, email, phone, school and role) plus the academic records you create or manage inside the platform.</p>
+                <p>BELLORA stores the information you provide during registration (name, email, phone, school and role) plus the academic records you create or manage inside the platform.</p>
                 <p>Your data is used to operate timetables, attendance, results and communication features for your school. It is not sold to third parties.</p>
-                <p>Passwords are stored using one-way hashing. You can request correction of your personal details through your school administrator or by contacting PANTA support.</p>
+                <p>Passwords are stored using one-way hashing. You can request correction of your personal details through your school administrator or by contacting BELLORA support.</p>
                 <p>Data is retained while your account remains active and for as long as required by your school's record-keeping obligations.</p>
               </div>
             )}

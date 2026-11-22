@@ -134,7 +134,7 @@ function RouteLoading() {
   useEffect(() => {
     loadingActions.startRoute()
     const { title } = routeMeta(location.pathname)
-    document.title = `${title} · PANTA`
+    document.title = `${title} · BELLORA`
     const timer = setTimeout(() => loadingActions.finishRoute(), 60)
     return () => clearTimeout(timer)
   }, [location.pathname, location.search])

@@ -1,5 +1,5 @@
 // ============================================================================
-// PANTA Director of Studies — school-scoped store.
+// BELLORA Director of Studies — school-scoped store.
 // All data comes from the backend, always restricted to the DOS's own school
 // (enforced server-side by the school-isolation middleware).
 //

@@ -87,9 +87,9 @@ export default function StLayout({ children }) {
         drawer={drawer}
         onNavigate={closeDrawer}
         onLogout={() => setConfirmLogout(true)}
-        logoUrl={resolveAssetUrl(store.overview?.schoolLogo) || `${import.meta.env.BASE_URL}panta-logo.png`}
-        logoAlt={store.overview?.schoolLogo ? 'School logo' : 'PANTA logo'}
-        logoLabel={store.overview?.schoolName || 'PANTA'}
+        logoUrl={resolveAssetUrl(store.overview?.schoolLogo) || `${import.meta.env.BASE_URL}bellora-logo.svg`}
+        logoAlt={store.overview?.schoolLogo ? 'School logo' : 'BELLORA logo'}
+        logoLabel={store.overview?.schoolName || 'BELLORA'}
         logoSubtitle="Student Portal"
       />
 
@@ -127,7 +127,7 @@ export default function StLayout({ children }) {
           {children}
         </main>
         <footer className="px-6 py-4 text-center text-[11.5px] border-t border-[var(--panta-border)]" style={{ color: 'var(--panta-muted)' }}>
-          PANTA Timetable Management System · Student Portal · {new Date().getFullYear()}
+          BELLORA Timetable Management System · Student Portal · {new Date().getFullYear()}
         </footer>
       </div>
 

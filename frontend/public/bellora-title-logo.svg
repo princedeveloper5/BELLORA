@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 96" role="img" aria-labelledby="title">
+  <title id="title">BELLORA School Management System</title>
+  <defs>
+    <linearGradient id="bellora" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#20b8a2" />
+      <stop offset="1" stop-color="#0b7f70" />
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="88" height="88" rx="24" fill="#102b42" />
+  <path d="M29 23h21c13 0 21 6 21 17 0 7-4 12-10 14 8 2 13 8 13 16 0 12-9 19-23 19H29V23Zm18 26c7 0 11-3 11-8s-4-8-11-8h-7v16h7Zm3 29c8 0 12-3 12-9s-4-9-12-9H40v18h10Z" fill="url(#bellora)" />
+  <text x="112" y="58" fill="#102b42" font-family="Inter, Arial, sans-serif" font-size="40" font-weight="800" letter-spacing="2">BELLORA</text>
+  <text x="114" y="79" fill="#627d98" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="2.2">SCHOOL MANAGEMENT SYSTEM</text>
+</svg>

@@ -95,7 +95,7 @@ export default function DosTimetableView() {
         } catch { /* ignore logo */ }
       }
       doc.setFontSize(16)
-      doc.text(`PANTA — Weekly Timetable`, logoUrl ? 84 : 40, 40)
+      doc.text(`BELLORA — Weekly Timetable`, logoUrl ? 84 : 40, 40)
       doc.setFontSize(11)
       doc.setTextColor(98, 125, 152)
       doc.text(`${group?.term} · ${group?.academic_year} · ${group?.status?.toUpperCase()} · ${visibleEntries.length} periods`, logoUrl ? 84 : 40, 58)

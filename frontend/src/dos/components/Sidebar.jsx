@@ -60,9 +60,9 @@ export default function Sidebar({ collapsed = false, drawer = false, onNavigate,
       drawer={drawer}
       onNavigate={onNavigate}
       onLogout={onLogout}
-      logoUrl={resolveAssetUrl(store.overview?.schoolLogo) || `${import.meta.env.BASE_URL}panta-logo.png`}
-      logoAlt={store.overview?.schoolLogo ? 'School logo' : 'PANTA logo'}
-      logoLabel={store.overview?.schoolName || 'PANTA'}
+      logoUrl={resolveAssetUrl(store.overview?.schoolLogo) || `${import.meta.env.BASE_URL}bellora-logo.svg`}
+      logoAlt={store.overview?.schoolLogo ? 'School logo' : 'BELLORA logo'}
+      logoLabel={store.overview?.schoolName || 'BELLORA'}
       logoSubtitle="Director of Studies"
     />
   )

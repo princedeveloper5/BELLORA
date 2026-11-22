@@ -98,7 +98,7 @@ export function downloadIcs(filename, entries, title = 'Timetable') {
   const esc = (s) => String(s || '').replace(/([,;\\])/g, '\\$1').replace(/\n/g, '\\n')
   const DAY_CODES = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU']
 
-  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//PANTA//Timetable//EN', 'CALSCALE:GREGORIAN', `X-WR-CALNAME:${esc(title)}`]
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//BELLORA//Timetable//EN', 'CALSCALE:GREGORIAN', `X-WR-CALNAME:${esc(title)}`]
   entries.forEach((e, i) => {
     const di = dayIndex(e.day_of_week ?? e.day)
     if (di < 0 || di > 6) return

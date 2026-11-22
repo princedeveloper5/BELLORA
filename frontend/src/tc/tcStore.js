@@ -1,4 +1,4 @@
-// PANTA Teacher console store — the authenticated teacher's own data only.
+// BELLORA Teacher console store — the authenticated teacher's own data only.
 import { createStore } from '@/stores/createStore'
 import api from '@/lib/api'
 

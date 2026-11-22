@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ChevronDown, LogOut } from 'lucide-react'
-import PantaLogo from './PantaLogo'
+import BelloraLogo from './BelloraLogo'
 import { initials } from '../format'
 import './sa-components.css'
 
@@ -58,7 +58,7 @@ export default function AppSidebar({
       aria-label="Primary navigation"
     >
       <div className={`shrink-0 px-5 py-5 ${collapsed ? 'px-0 flex justify-center' : ''}`}>
-        <PantaLogo collapsed={collapsed} logoUrl={logoUrl} alt={logoAlt} label={logoLabel} subtitle={logoSubtitle} />
+        <BelloraLogo collapsed={collapsed} logoUrl={logoUrl} alt={logoAlt} label={logoLabel} subtitle={logoSubtitle} />
       </div>
 
       <nav className="grow overflow-y-auto app-side-scroll px-3 pb-3" role="navigation" aria-label="Main">

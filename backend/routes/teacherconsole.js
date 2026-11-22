@@ -1,5 +1,5 @@
 // ============================================================================
-// PANTA Teacher console API (/api/teacher-console)
+// BELLORA Teacher console API (/api/teacher-console)
 // Serves the authenticated teacher's own data only (resolved from the token,
 // never from client-supplied ids). Mounted behind the shared `auth` middleware
 // and restricted to role = teacher.

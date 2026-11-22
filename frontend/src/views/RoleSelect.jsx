@@ -46,7 +46,7 @@ export default function RoleSelect() {
               <CalendarDays size={20} />
             </span>
             <span className="text-left leading-tight">
-              <span className="block text-[17px] font-extrabold text-[#102A43] tracking-wide">PANTA</span>
+              <span className="block text-[17px] font-extrabold text-[#102A43] tracking-wide">BELLORA</span>
               <span className="block text-[10.5px] font-medium text-[#627D98]">School Management System</span>
             </span>
           </Link>

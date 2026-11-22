@@ -16,14 +16,14 @@ class RootBoundary extends React.Component {
   }
 
   componentDidCatch(error) {
-    console.error('PANTA failed to render:', error)
+    console.error('BELLORA failed to render:', error)
   }
 
   render() {
     if (this.state.error) {
       return (
         <main style={{ fontFamily: 'system-ui', maxWidth: 680, margin: '12vh auto', padding: 32, color: '#172b45' }}>
-          <h1>PANTA could not load</h1>
+          <h1>BELLORA could not load</h1>
           <p>The page hit a frontend error. Refresh once; if it continues, share this message with support.</p>
           <pre style={{ whiteSpace: 'pre-wrap', color: '#a33' }}>{this.state.error.message}</pre>
         </main>

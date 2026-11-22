@@ -1,5 +1,5 @@
 // ============================================================================
-// PANTA Director of Studies console API (/api/dos-console)
+// BELLORA Director of Studies console API (/api/dos-console)
 // School-scoped: every query is restricted to req.user.school_id, enforced
 // server-side (never trusts frontend school ids). Mounted behind adminAuth +
 // requireSchoolAdmin (roles: dos, admin).

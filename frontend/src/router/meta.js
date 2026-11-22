@@ -1,11 +1,11 @@
 const ROUTE_META = [
-  ['/login', 'Sign In', 'PANTA · Authentication'],
-  ['/choose-role', 'Choose Your Role', 'PANTA · Authentication'],
-  ['/register', 'Create Account', 'PANTA · Registration'],
-  ['/dos/register', 'Director Registration', 'PANTA · Registration'],
-  ['/forgot-password', 'Reset Access', 'PANTA · Authentication'],
-  ['/reset-password', 'Set New Password', 'PANTA · Authentication'],
-  ['/account-status', 'Account Status', 'PANTA · Authentication'],
+  ['/login', 'Sign In', 'BELLORA · Authentication'],
+  ['/choose-role', 'Choose Your Role', 'BELLORA · Authentication'],
+  ['/register', 'Create Account', 'BELLORA · Registration'],
+  ['/dos/register', 'Director Registration', 'BELLORA · Registration'],
+  ['/forgot-password', 'Reset Access', 'BELLORA · Authentication'],
+  ['/reset-password', 'Set New Password', 'BELLORA · Authentication'],
+  ['/account-status', 'Account Status', 'BELLORA · Authentication'],
 
   ['/super-admin/dashboard', 'Dashboard', 'Super Admin · Dashboard'],
   ['/super-admin/schools/', 'School Profile', 'Super Admin · Schools · Details'],

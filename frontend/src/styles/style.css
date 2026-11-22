@@ -2635,7 +2635,7 @@ body.teacher-dark-mode .teacher-shell.dark-mode .teacher-dashboard-page .next-le
   --action-soft: #e7f5f2;
 }
 
-/* Final PANTA palette pass: keep legacy page level styles on the same controls. */
+/* Final BELLORA palette pass: keep legacy page level styles on the same controls. */
 :root {
   --bs-primary: #0f9d8a;
   --bs-primary-rgb: 15, 157, 138;

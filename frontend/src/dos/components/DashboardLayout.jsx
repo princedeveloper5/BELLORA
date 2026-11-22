@@ -71,7 +71,7 @@ export default function DashboardLayout({ children }) {
           className="px-6 py-4 text-center text-[11.5px] border-t border-[var(--panta-border)]"
           style={{ color: 'var(--panta-muted)' }}
         >
-          PANTA Timetable Management System · Director of Studies · {new Date().getFullYear()}
+          BELLORA Timetable Management System · Director of Studies · {new Date().getFullYear()}
         </footer>
       </div>
 

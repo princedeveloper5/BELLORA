@@ -1,5 +1,5 @@
 // ============================================================================
-// PANTA Super Admin API (/api/sa)
+// BELLORA Super Admin API (/api/sa)
 // Every route requires a valid JWT with role = super_admin (mounted in
 // index.js behind adminAuth + requireSuperAdmin). All reads/writes hit the
 // real MySQL database; multi-write operations run inside transactions and

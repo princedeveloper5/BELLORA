@@ -1,5 +1,5 @@
 // ============================================================================
-// PANTA — centralized theme configuration (all consoles).
+// BELLORA — centralized theme configuration (all consoles).
 // Single source of truth for colors used in JS (charts, dynamic styles).
 // The same tokens are exposed as CSS variables in theme.css.
 // ============================================================================

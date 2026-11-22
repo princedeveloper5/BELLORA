@@ -6,7 +6,7 @@ import './DosRegister.css'
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/
-const logoUrl = `${import.meta.env.BASE_URL}panta-logo.png`
+const logoUrl = `${import.meta.env.BASE_URL}bellora-logo.svg`
 
 const initialForm = {
   full_name: '',
@@ -137,7 +137,7 @@ export default function DosRegister() {
         <div className="panel-heading">
           <div className="school-register-mark">
             <Building2 size={25} strokeWidth={2.25} aria-hidden="true" />
-            <img src={logoUrl} alt="PANTA logo" />
+            <img src={logoUrl} alt="BELLORA logo" />
           </div>
           <div>
             <h1>Director of Studies Registration</h1>

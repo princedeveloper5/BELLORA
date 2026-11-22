@@ -122,18 +122,18 @@ export default function Login() {
         <span>{isDarkMode ? 'Light mode' : 'Dark mode'}</span>
       </button>
 
-      <section className="login-hero" aria-label="PANTA overview">
+      <section className="login-hero" aria-label="BELLORA overview">
         <div className="login-brand">
-          <img className="hero-brand-mark" src={`${import.meta.env.BASE_URL}panta-logo.png`} alt="PANTA logo" />
+          <img className="hero-brand-mark" src={`${import.meta.env.BASE_URL}bellora-logo.svg`} alt="BELLORA logo" />
           <div>
-            <strong>PANTA</strong>
+            <strong>BELLORA</strong>
             <span>School Management System</span>
           </div>
         </div>
 
         <div className="hero-copy">
           <p className="hero-kicker">Smarter Scheduling. Better Learning.</p>
-          <p>PANTA helps schools manage timetables, users, classes and academic activities efficiently — all in one place.</p>
+          <p>BELLORA helps schools manage timetables, users, classes and academic activities efficiently — all in one place.</p>
         </div>
 
         <div className="hero-features" aria-label="Platform benefits">
@@ -148,7 +148,7 @@ export default function Login() {
         <div className="login-card-header">
           <div>
             <h1 className="auth-title mb-0">Welcome Back</h1>
-            <p>Sign in to your PANTA account</p>
+            <p>Sign in to your BELLORA account</p>
           </div>
         </div>
 

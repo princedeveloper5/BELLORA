@@ -8,7 +8,7 @@ export default function Preloader({ loading }) {
       className="preloader-container preloader-fade-enter"
       role="status"
       aria-live="polite"
-      aria-label="Loading PANTA"
+      aria-label="Loading BELLORA"
     >
       <div className="preloader-brand" aria-hidden="true">
         <div className="preloader-calendar">
@@ -17,7 +17,7 @@ export default function Preloader({ loading }) {
           <span />
         </div>
         <div>
-          <strong>PANTA</strong>
+          <strong>BELLORA</strong>
           <small>Timetable Management System</small>
         </div>
       </div>
