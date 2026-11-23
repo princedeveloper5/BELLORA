@@ -173,6 +173,14 @@ export default function AppRouter() {
             path="/register"
             element={
               <RouteGuard mode="guest">
+                <RoleSelect registration />
+              </RouteGuard>
+            }
+          />
+          <Route
+            path="/register/teacher"
+            element={
+              <RouteGuard mode="guest">
                 <Register />
               </RouteGuard>
             }
@@ -545,7 +553,7 @@ export default function AppRouter() {
               </RouteGuard>
             }
           />
-          <Route path="/teacher/register" element={<Navigate to="/register" replace />} />
+          <Route path="/teacher/register" element={<Navigate to="/register/teacher" replace />} />
           <Route path="/teacher/login" element={<Navigate to="/login" replace />} />
           <Route path="/teacher/requests" element={<Navigate to="/teacher/dashboard" replace />} />
           <Route path="/teacher/announcements" element={<Navigate to="/teacher/dashboard" replace />} />

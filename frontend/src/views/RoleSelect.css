@@ -1,0 +1,95 @@
+.role-select-page {
+  position: relative;
+  isolation: isolate;
+  color: #102a43;
+  background-color: #12304a;
+  background-image:
+    linear-gradient(110deg, rgba(10, 34, 58, .9), rgba(15, 87, 108, .62) 58%, rgba(15, 157, 138, .25)),
+    url('/school-campus-hero.png');
+  background-position: center;
+  background-size: cover;
+}
+
+.role-select-shell {
+  padding: clamp(1.2rem, 4vw, 2.5rem);
+  border: 1px solid rgba(226, 235, 245, .9);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, .97);
+  box-shadow: 0 28px 78px rgba(4, 20, 41, .32);
+}
+
+.role-select-logo { border: 1px solid #dce7ed; }
+.role-select-title { margin: 0; }
+.role-select-subtitle { margin-bottom: 0; }
+.role-choice-card { min-height: 84px; border-width: 1px; border-color: #d8e5ec; }
+.role-choice-card:hover { border-color: #0f9d8a; }
+.role-choice-card:focus-visible { outline: 3px solid rgba(15, 157, 138, .38); outline-offset: 2px; }
+.role-select-login-link { color: #0b7f70; font-style: normal; font-weight: 800; text-decoration: none; }
+.role-select-login-link:hover { color: #102a43; text-decoration: underline; text-underline-offset: 3px; }
+.role-select-page.is-registration-choice .role-select-shell { max-width: 620px; }
+.role-select-page.is-registration-choice .role-choice-card { min-height: 94px; }
+
+@media (max-width: 520px) {
+  .role-select-shell { padding: 1.15rem; border-radius: 18px; }
+  .role-choice-card { gap: .8rem; padding: .85rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .role-select-page *, .role-select-page *::before, .role-select-page *::after {
+    transition-duration: .01ms !important;
+  }
+}
+
+.role-select-page.is-registration-choice {
+  min-height: 100vh;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: #f1f4f8;
+}
+
+.role-select-page.is-registration-choice .role-select-shell {
+  display: grid;
+  grid-template-columns: minmax(250px, .82fr) minmax(0, 1.18fr);
+  align-items: center;
+  gap: 0;
+  max-width: 960px;
+  padding: 0;
+  border: 1px solid #dce5ee;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 20px 54px rgba(16,42,67,.1);
+}
+
+.role-select-page.is-registration-choice .role-select-shell > .text-center {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 0;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-right: 1px solid #e6edf3;
+  text-align: left;
+}
+
+.role-select-page.is-registration-choice .role-select-shell > .text-center > a { margin-bottom: 2rem; }
+.role-select-page.is-registration-choice .role-select-title { font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.15; }
+.role-select-page.is-registration-choice .role-select-subtitle { max-width: 290px; font-size: .85rem; line-height: 1.55; }
+.role-select-page.is-registration-choice .role-select-options { display: grid; gap: .6rem; padding: 1.5rem; }
+.role-select-page.is-registration-choice .role-choice-card { min-height: 86px; padding: .85rem 1rem; border-radius: 13px; }
+.role-select-page.is-registration-choice .role-select-shell > p { grid-column: 1 / -1; margin: 0; padding: .8rem 1.2rem; border-top: 1px solid #e9eef3; color: #71869c; font-style: normal; }
+
+@media (max-width: 700px) {
+  .role-select-page.is-registration-choice .role-select-shell { grid-template-columns: minmax(0,1fr); }
+  .role-select-page.is-registration-choice .role-select-shell > .text-center { align-items: center; padding: 1.5rem 1.2rem 1rem; border-right: 0; text-align: center; }
+  .role-select-page.is-registration-choice .role-select-shell > .text-center > a { margin-bottom: 1.1rem; }
+  .role-select-page.is-registration-choice .role-select-subtitle { max-width: 420px; }
+  .role-select-page.is-registration-choice .role-select-options { padding: .7rem 1.1rem 1.1rem; }
+  .role-select-page.is-registration-choice .role-select-shell > p { padding: .8rem; }
+}
+
+@media (max-width: 420px) {
+  .role-select-page.is-registration-choice { padding: .65rem; }
+  .role-select-page.is-registration-choice .role-select-options { padding: .6rem .75rem .9rem; }
+  .role-select-page.is-registration-choice .role-choice-card { gap: .65rem; padding: .75rem; }
+  .role-select-page.is-registration-choice .role-choice-card > span:nth-child(2) > span:last-child { font-size: .71rem; }
+}

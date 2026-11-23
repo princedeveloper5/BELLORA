@@ -401,10 +401,10 @@ export default function Settings() {
       return
     }
     const result = await authStore.updateProfile({
-      username: profile.full_name,
-      full_name: profile.full_name,
-      email: profile.email,
-      phone: profile.phone,
+      username: profile.full_name.trim(),
+      full_name: profile.full_name.trim(),
+      email: profile.email.trim(),
+      phone: profile.phone.trim(),
       profile_photo: profile.profile_photo
     })
     if (!result.success) {
@@ -680,11 +680,11 @@ export default function Settings() {
 
         <section className="settings-shell">
           <aside className={`settings-nav${navOpen ? ' open' : ''}`}>
-            <button className="mobile-nav-toggle" type="button" onClick={() => setNavOpen(!navOpen)}>
+            <button className="mobile-nav-toggle" type="button" aria-expanded={navOpen} aria-controls="settings-navigation-list" onClick={() => setNavOpen(!navOpen)}>
               <SlidersHorizontal size={16} strokeWidth={2.2} aria-hidden="true" />
               Settings Menu
             </button>
-            <div className="nav-list">
+            <div className="nav-list" id="settings-navigation-list">
               {navGroups.map((group) => (
                 <div key={group.label} className="nav-group">
                   <strong>{group.label}</strong>
@@ -700,6 +700,7 @@ export default function Settings() {
                         onClick={() => selectSection(item.id)}
                       >
                         <Icon className="settings-svg" size={18} strokeWidth={2.2} aria-hidden="true" />
+                        <span>{item.label}</span>
                       </button>
                     )
                   })}
@@ -740,16 +741,16 @@ export default function Settings() {
                     <div className="form-grid two">
                       <label className="field">
                         <span>Full Name</span>
-                        <input value={profile.full_name} onChange={(event) => updateProfileField('full_name', event.target.value.trim())} type="text" />
+                        <input value={profile.full_name} onChange={(event) => updateProfileField('full_name', event.target.value)} type="text" />
                       </label>
                       <label className="field">
                         <span>Email</span>
-                        <input value={profile.email} onChange={(event) => updateProfileField('email', event.target.value.trim())} type="email" />
+                        <input value={profile.email} onChange={(event) => updateProfileField('email', event.target.value)} type="email" />
                         <em className={emailValidation.valid ? 'valid-hint' : 'invalid-hint'}>{emailValidation.message}</em>
                       </label>
                       <label className="field">
                         <span>Phone Number</span>
-                        <input value={profile.phone} onChange={(event) => updateProfileField('phone', event.target.value.trim())} type="tel" />
+                        <input value={profile.phone} onChange={(event) => updateProfileField('phone', event.target.value)} type="tel" />
                       </label>
                     </div>
                   </div>

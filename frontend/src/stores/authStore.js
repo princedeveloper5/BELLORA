@@ -116,7 +116,7 @@ export const authActions = {
     if (api) delete api.defaults.headers.common.Authorization
   },
 
-  async updateProfile(profileData, api) {
+  async updateProfile(profileData, api, requestOptions = {}) {
     authStore.setState({ loading: true, error: null })
 
     try {
@@ -124,7 +124,8 @@ export const authActions = {
       const endpoint = userType === 'teacher' ? '/teacher-auth/me' : '/auth/me'
       const token = authStore.getState().token || localStorage.getItem('token')
       const response = await api.put(endpoint, profileData, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {}
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        ...requestOptions
       })
       const user = userType === 'teacher' ? response.data.teacher : response.data.user
 
@@ -236,7 +237,7 @@ export const useAuthStore = () => {
     login: (credentials) => lazyApi().then((api) => authActions.login(credentials, api)),
     register: (userData) => lazyApi().then((api) => authActions.register(userData, api)),
     logout: () => authActions.logout(),
-    updateProfile: (profileData) => lazyApi().then((api) => authActions.updateProfile(profileData, api)),
+    updateProfile: (profileData, requestOptions) => lazyApi().then((api) => authActions.updateProfile(profileData, api, requestOptions)),
     checkAuth: (options = {}) => lazyApi().then((api) => authActions.checkAuth(api, options))
   }
 }

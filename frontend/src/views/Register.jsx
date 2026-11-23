@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Eye, EyeOff, LockKeyhole, Mail, UserRound } from 'lucide-react'
+import { ArrowLeft, Check, Eye, EyeOff, LockKeyhole, Mail, ShieldCheck, UserRound } from 'lucide-react'
 import api from '@/stores/api'
 import { useAuthStore } from '@/stores/authStore'
 import './Register.css'
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/
-const logoUrl = `${import.meta.env.BASE_URL}bellora-title-logo.svg`
-
 const initialForm = {
   full_name: '',
   email: '',
@@ -26,6 +24,10 @@ const initialForm = {
   password: '',
   confirmPassword: ''
 }
+const normalizeForm = (values) => Object.fromEntries(Object.entries(values).map(([key, value]) => [
+  key,
+  typeof value === 'string' && !['password', 'confirmPassword'].includes(key) ? value.trim() : value
+]))
 
 export default function Register() {
   const navigate = useNavigate()
@@ -34,6 +36,7 @@ export default function Register() {
   const [form, setForm] = useState(initialForm)
   const [step, setStep] = useState('details')
   const [pendingEmail, setPendingEmail] = useState('')
+  const [pendingForm, setPendingForm] = useState(null)
   const [otpDigits, setOtpDigits] = useState(['', '', '', '', '', ''])
   const [countdown, setCountdown] = useState(0)
   const [resendCooldown, setResendCooldown] = useState(0)
@@ -45,6 +48,7 @@ export default function Register() {
   const [acceptedTerms, setAcceptedTerms] = useState(false)
   const [selectedPhoto, setSelectedPhoto] = useState(null)
   const [activeSchools, setActiveSchools] = useState([])
+  const [schoolLoadStatus, setSchoolLoadStatus] = useState('loading')
   const [successTitle, setSuccessTitle] = useState('Account Created!')
   const [successDetail, setSuccessDetail] = useState('Redirecting to your dashboard...')
   const [legalDoc, setLegalDoc] = useState(null)
@@ -61,18 +65,26 @@ export default function Register() {
   })()
 
   const otpCode = otpDigits.join('')
+  const pendingDetailsChanged = Boolean(
+    pendingForm && Object.keys(pendingForm).some((key) => normalizeForm(form)[key] !== pendingForm[key])
+  )
+  const pendingEmailChanged = Boolean(pendingEmail && form.email.trim().toLowerCase() !== pendingEmail.trim().toLowerCase())
+  const waitingToUpdatePendingCode = Boolean(
+    pendingEmail && pendingDetailsChanged && !pendingEmailChanged && resendCooldown > 0
+  )
 
   const validate = () => {
-    if (form.full_name.length < 3) return 'Full name must be at least 3 characters.'
-    if (!emailPattern.test(form.email)) return 'Please enter a valid email.'
-    if (!form.phone) return 'Phone number is required.'
-    if (!form.department) return 'Department is required.'
-    if (!form.qualification) return 'Qualification is required.'
-    if (!form.employeeId) return 'Staff ID is required.'
-    if (!form.national_id) return 'National ID is required.'
+    const clean = normalizeForm(form)
+    if (clean.full_name.length < 3) return 'Full name must be at least 3 characters.'
+    if (!emailPattern.test(clean.email)) return 'Please enter a valid email.'
+    if (!clean.phone) return 'Phone number is required.'
+    if (!clean.department) return 'Department is required.'
+    if (!clean.qualification) return 'Qualification is required.'
+    if (!clean.employeeId) return 'Staff ID is required.'
+    if (!clean.national_id) return 'National ID is required.'
     if (!form.school_id) return 'Select an approved active school.'
     if (!form.gender) return 'Gender is required.'
-    if (!form.module_name) return 'Subject specialization is required.'
+    if (!clean.module_name) return 'Subject specialization is required.'
     if (!selectedPhoto && !form.profile_photo) return 'Profile photo is required.'
     if (!passwordPattern.test(form.password)) {
       return 'Password must be at least 8 characters and include uppercase, lowercase, and a number.'
@@ -84,8 +96,29 @@ export default function Register() {
 
   const handlePhotoChange = (event) => {
     const file = event.target.files?.[0]
+    if (file && !file.type.startsWith('image/')) {
+      setError('Choose an image file for your profile photo.')
+      setSelectedPhoto(null)
+      updateField('profile_photo', '')
+      event.target.value = ''
+      return
+    }
+    if (file && file.size > 2 * 1024 * 1024) {
+      setError('Choose a profile photo smaller than 2 MB.')
+      setSelectedPhoto(null)
+      updateField('profile_photo', '')
+      event.target.value = ''
+      return
+    }
+    setError('')
     setSelectedPhoto(file || null)
     updateField('profile_photo', '')
+  }
+
+  const returnToDetails = () => {
+    setStep('details')
+    setError('')
+    setSuccess('')
   }
 
   const uploadRegistrationPhoto = async () => {
@@ -98,6 +131,7 @@ export default function Register() {
     })
     const path = response.data.photo?.path || ''
     updateField('profile_photo', path)
+    setSelectedPhoto(null)
     return path
   }
 
@@ -131,23 +165,27 @@ export default function Register() {
     setLoading(true)
     try {
       const profilePhoto = await uploadRegistrationPhoto()
+      const cleanForm = normalizeForm(form)
       const payload = {
-        ...form,
-        username: form.full_name,
-        phone: form.phone || '',
+        ...cleanForm,
+        username: cleanForm.full_name,
+        phone: cleanForm.phone || '',
         profile_photo: profilePhoto,
         school_id: form.school_id,
         role: 'teacher'
       }
       const response = await api.post('/auth/register', payload)
       setPendingEmail(response.data.email)
+      setPendingForm({ ...cleanForm, profile_photo: profilePhoto })
+      setForm((prev) => ({ ...prev, ...cleanForm }))
       setSuccess(response.data.message || 'OTP sent.')
       setOtpDigits(['', '', '', '', '', ''])
       setStep('otp')
       startTimers(response.data.expires_in_seconds || 300, response.data.resend_cooldown_seconds || 45)
       setTimeout(() => otpRefs.current[0]?.focus(), 0)
     } catch (err) {
-      setError(err.response?.data?.message || 'Unable to send OTP.')
+      const validationMessages = err.response?.data?.errors?.map((item) => item.msg || item.message).filter(Boolean).join(' ')
+      setError(err.response?.data?.message || validationMessages || 'Unable to send the verification code. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -174,9 +212,7 @@ export default function Register() {
       if (requiresApproval) {
         setSuccessTitle('Registration Sent!')
         setSuccessDetail('Your teacher account is waiting for admin approval.')
-        setSuccess(response.data.message || 'Teacher registered successfully. Awaiting admin approval.')
         setStep('success')
-        setTimeout(() => navigate('/login'), 1600)
         return
       }
 
@@ -195,7 +231,10 @@ export default function Register() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (step === 'details') requestOtp()
+    if (step === 'details' && pendingEmail && !pendingDetailsChanged) {
+      setError('')
+      setStep('otp')
+    } else if (step === 'details') requestOtp()
     else verifyOtp()
   }
 
@@ -229,6 +268,22 @@ export default function Register() {
     otpRefs.current[Math.min(digits.length, 5)]?.focus()
   }
 
+  const loadActiveSchools = async () => {
+    setSchoolLoadStatus('loading')
+    try {
+      const response = await api.get('/schools/active')
+      const byId = new Map()
+      ;(response.data.schools || []).forEach((school) => {
+        if (!byId.has(school.school_id)) byId.set(school.school_id, school)
+      })
+      setActiveSchools([...byId.values()])
+      setSchoolLoadStatus('ready')
+    } catch {
+      setActiveSchools([])
+      setSchoolLoadStatus('error')
+    }
+  }
+
   useEffect(() => {
     return () => {
       clearInterval(countdownTimer.current)
@@ -237,54 +292,71 @@ export default function Register() {
   }, [])
 
   useEffect(() => {
-    const loadActiveSchools = async () => {
-      try {
-        const response = await api.get('/schools/active')
-        const byId = new Map()
-        ;(response.data.schools || []).forEach((school) => {
-          if (!byId.has(school.school_id)) byId.set(school.school_id, school)
-        })
-        setActiveSchools([...byId.values()])
-      } catch (err) {
-        setActiveSchools([])
-      }
-    }
     loadActiveSchools()
   }, [])
 
   return (
-    <div className="register-page min-vh-100 d-flex align-items-center justify-content-center p-3">
-      <div className={`register-card w-100${loading ? ' is-loading' : ''}`}>
-        <div className="register-card-header">
-          <div className="brand-login-mark">
-            <img className="brand-login-logo" src={logoUrl} alt="School logo" />
+    <div className="register-page registration-flow-page registration-flow-page--teacher">
+      <div className="registration-flow-top">
+        <Link to="/register" className="back-login-link"><ArrowLeft size={16} /> Account types</Link>
+        <span className="registration-secure"><LockKeyhole size={14} /> Secure teacher application</span>
+      </div>
+      <div className="registration-shell registration-shell--teacher">
+        <aside className="registration-side-panel">
+          <img className="registration-aside-logo" src={`${import.meta.env.BASE_URL}bellora-brand-lockup.png`} alt="BELLORA — Smarter Scheduling, Better Learning" />
+          <span className="registration-aside-kicker">TEACHER APPLICATION</span>
+          <h1>Join your school’s teaching team.</h1>
+          <p>Share your details and verify your email. Your school Director of Studies reviews each teacher request.</p>
+          <ol className="registration-side-steps" aria-label="Teacher registration progress">
+            <li className={step === 'details' ? 'active' : 'complete'}>
+              <span>{step === 'details' ? '01' : <Check size={14} />}</span>
+              <div><strong>Your details</strong><small>Profile, school and account</small></div>
+            </li>
+            <li className={step === 'otp' ? 'active' : step === 'success' ? 'complete' : ''}>
+              <span>{step === 'success' ? <Check size={14} /> : '02'}</span>
+              <div><strong>Email verification</strong><small>Confirm your email address</small></div>
+            </li>
+          </ol>
+          <div className="registration-aside-note">
+            <ShieldCheck size={17} />
+            <span>Your request is sent only to the school you select.</span>
           </div>
-          <div className="register-brand-copy">
-            <h1 className="brand-title mb-0">BELLORA</h1>
-            <span>Teacher registration</span>
-          </div>
-        </div>
+        </aside>
 
+        <main className={`register-card registration-form-panel w-100${loading ? ' is-loading' : ''}`}>
         <form onSubmit={handleSubmit} className="register-form">
           {step === 'details' ? (
             <>
               <h2 className="form-title">Create your teacher account</h2>
               <p className="register-intro">Add your details and verify your email to request access to your school's BELLORA workspace.</p>
-              <div className="register-steps" aria-label="Registration progress">
-                <span className="register-step is-current"><b>1</b><span>Your details</span></span>
-                <i></i>
-                <span className="register-step"><b>2</b><span>Email verification</span></span>
-              </div>
-
               <div className="register-context">
                 <div>
                   <strong>Teacher Account</strong>
                   <span>Join an approved school and wait for DOS approval.</span>
                 </div>
-                <Link to="/dos/register">Register a School</Link>
+                <Link to="/register">Choose another account type</Link>
               </div>
 
+              {pendingEmail ? (
+                <div className={`registration-code-return-note${pendingDetailsChanged ? ' has-changes' : ''}`}>
+                  <strong>Verification sent to {pendingEmail}</strong>
+                  <span>{pendingDetailsChanged
+                    ? !pendingEmailChanged && resendCooldown > 0
+                      ? `You changed these details. Wait ${resendCooldown} seconds before requesting an updated code.`
+                      : 'You changed these details. Send a new code to apply them to your request.'
+                    : `Your current code is still active for ${formattedCountdown}. Return to verification when ready.`}</span>
+                  {!pendingDetailsChanged ? (
+                    <button type="button" onClick={() => { setError(''); setStep('otp') }}>Return to verification</button>
+                  ) : null}
+                </div>
+              ) : null}
+
               <div className="title-rule"></div>
+
+              <div className="register-section-heading">
+                <strong>Personal information</strong>
+                <span>Use the name and contact details that match your school records.</span>
+              </div>
 
               <div className="register-field">
                 <label htmlFor="fullName" className="form-label">Full Name</label>
@@ -293,7 +365,7 @@ export default function Register() {
                   <input
                     id="fullName"
                     value={form.full_name}
-                    onChange={(event) => updateField('full_name', event.target.value.trim())}
+                    onChange={(event) => updateField('full_name', event.target.value)}
                     type="text"
                     placeholder="Enter your full name"
                     required
@@ -309,13 +381,18 @@ export default function Register() {
                   <input
                     id="email"
                     value={form.email}
-                    onChange={(event) => updateField('email', event.target.value.trim())}
+                    onChange={(event) => updateField('email', event.target.value)}
                     type="email"
                     placeholder="Enter your email address"
                     required
                     className="form-control"
                   />
                 </div>
+              </div>
+
+              <div className="register-section-heading">
+                <strong>Teaching and school details</strong>
+                <span>Select the approved school where you teach. Your request will go to its Director of Studies.</span>
               </div>
 
               <div className="register-grid">
@@ -325,7 +402,7 @@ export default function Register() {
                     <input
                       id="phone"
                       value={form.phone}
-                      onChange={(event) => updateField('phone', event.target.value.trim())}
+                      onChange={(event) => updateField('phone', event.target.value)}
                       type="tel"
                       placeholder="Enter phone number"
                       required
@@ -340,7 +417,7 @@ export default function Register() {
                     <input
                       id="department"
                       value={form.department}
-                      onChange={(event) => updateField('department', event.target.value.trim())}
+                      onChange={(event) => updateField('department', event.target.value)}
                       type="text"
                       placeholder="Department"
                       required
@@ -357,7 +434,7 @@ export default function Register() {
                     <input
                       id="qualification"
                       value={form.qualification}
-                      onChange={(event) => updateField('qualification', event.target.value.trim())}
+                      onChange={(event) => updateField('qualification', event.target.value)}
                       type="text"
                       placeholder="Highest qualification"
                       required
@@ -372,7 +449,7 @@ export default function Register() {
                     <input
                       id="employeeId"
                       value={form.employeeId}
-                      onChange={(event) => updateField('employeeId', event.target.value.trim())}
+                      onChange={(event) => updateField('employeeId', event.target.value)}
                       type="text"
                       placeholder="ID number"
                       required
@@ -389,7 +466,7 @@ export default function Register() {
                     <input
                       id="nationalId"
                       value={form.national_id}
-                      onChange={(event) => updateField('national_id', event.target.value.trim())}
+                      onChange={(event) => updateField('national_id', event.target.value)}
                       type="text"
                       placeholder="National ID number"
                       required
@@ -406,9 +483,12 @@ export default function Register() {
                       value={form.school_id}
                       onChange={(event) => updateField('school_id', event.target.value)}
                       required
+                      disabled={schoolLoadStatus !== 'ready' || activeSchools.length === 0}
                       className="form-control"
                     >
-                      <option value="">Choose an approved school</option>
+                      <option value="">
+                        {schoolLoadStatus === 'loading' ? 'Loading approved schools…' : schoolLoadStatus === 'error' ? 'School list could not be loaded' : 'Choose an approved school'}
+                      </option>
                       {activeSchools.map((school) => (
                         <option key={school.school_id} value={school.school_id}>
                           {school.school_name}{school.school_code ? ` (${school.school_code})` : ''}
@@ -416,6 +496,13 @@ export default function Register() {
                       ))}
                     </select>
                   </div>
+                  {schoolLoadStatus === 'loading' ? <p className="register-school-empty" role="status">Loading approved schools…</p> : null}
+                  {schoolLoadStatus === 'error' ? (
+                    <p className="register-school-empty" role="alert">We couldn’t load the school list. <button type="button" onClick={loadActiveSchools}>Try again</button></p>
+                  ) : null}
+                  {schoolLoadStatus === 'ready' && activeSchools.length === 0 ? (
+                    <p className="register-school-empty">There are no approved schools available yet. <Link to="/dos/register?for=school">Register a new school</Link>.</p>
+                  ) : null}
                 </div>
               </div>
 
@@ -438,7 +525,7 @@ export default function Register() {
                     <input
                       id="specialization"
                       value={form.module_name}
-                      onChange={(event) => updateField('module_name', event.target.value.trim())}
+                      onChange={(event) => updateField('module_name', event.target.value)}
                       type="text"
                       placeholder="Subject specialization"
                       required
@@ -454,10 +541,16 @@ export default function Register() {
                   id="profilePhoto"
                   type="file"
                   accept="image/*"
-                  required
+                  required={!form.profile_photo}
                   className="form-control file-control"
                   onChange={handlePhotoChange}
                 />
+                <small className="register-file-hint">Image only, up to 2 MB. {selectedPhoto?.name || (form.profile_photo ? 'Profile photo uploaded. Choose another to replace it.' : 'A clear headshot works best.')}</small>
+              </div>
+
+              <div className="register-section-heading">
+                <strong>Secure your account</strong>
+                <span>Use at least 8 characters, including uppercase, lowercase, and a number.</span>
               </div>
 
               <div className="register-field">
@@ -527,24 +620,24 @@ export default function Register() {
             <>
               <h2 className="form-title">Verify your email</h2>
               <p className="register-intro">Enter the 6-digit code we sent to finish creating your teacher account.</p>
-              <div className="register-steps" aria-label="Registration progress">
-                <span className="register-step is-complete"><b>1</b><span>Your details</span></span>
-                <i></i>
-                <span className="register-step is-current"><b>2</b><span>Email verification</span></span>
-              </div>
               <div className="title-rule"></div>
 
               <div className="verification-note">
                 <strong>Code sent to {pendingEmail}</strong>
                 <span>Expires in {formattedCountdown}</span>
               </div>
+              <button type="button" className="register-edit-details" onClick={returnToDetails}>
+                Wrong email or details? Go back and edit
+              </button>
 
               <label htmlFor="otp" className="form-label">Enter 6-Digit OTP</label>
               <div className="otp-grid" onPaste={handleOtpPaste}>
                 {otpDigits.map((_, index) => (
                   <input
                     key={index}
+                    id={index === 0 ? 'otp' : `otp-${index + 1}`}
                     ref={(el) => { otpRefs.current[index] = el }}
+                    aria-label={`Verification code digit ${index + 1}`}
                     value={otpDigits[index]}
                     onChange={(event) => handleOtpInput(index, event.target.value)}
                     inputMode="numeric"
@@ -590,7 +683,7 @@ export default function Register() {
           {step !== 'success' ? (
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || (step === 'details' && (schoolLoadStatus !== 'ready' || activeSchools.length === 0 || waitingToUpdatePendingCode))}
               className="btn register-submit w-100"
             >
               {loading ? (
@@ -600,17 +693,27 @@ export default function Register() {
                 </span>
               ) : (
                 <span>
-                  {step === 'details' ? 'Sign Up' : 'Verify & Create Account'}
+                  {step === 'details'
+                    ? pendingEmail && !pendingDetailsChanged
+                      ? 'Return to email verification'
+                      : pendingDetailsChanged
+                        ? waitingToUpdatePendingCode ? `Wait ${resendCooldown}s to update details` : 'Send updated verification code'
+                        : 'Send verification code'
+                    : 'Verify & Create Account'}
                 </span>
               )}
             </button>
           ) : null}
 
           <div className="login-row">
-            <span>Already have an account?</span>
-            <Link to="/login">Log In</Link>
+            {step === 'success' && successTitle === 'Registration Sent!' ? (
+              <><span>When your school approves the request, return here to</span><Link to="/login">sign in</Link></>
+            ) : (
+              <><span>Already have an account?</span><Link to="/login">Log In</Link></>
+            )}
           </div>
         </form>
+        </main>
       </div>
 
       {legalDoc ? (

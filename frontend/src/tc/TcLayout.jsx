@@ -144,7 +144,7 @@ export default function TcLayout({ children }) {
         drawer={drawer}
         onNavigate={closeDrawer}
         onLogout={() => setConfirmLogout(true)}
-        logoUrl={resolveAssetUrl(store.overview?.schoolLogo) || `${import.meta.env.BASE_URL}bellora-logo.svg`}
+        logoUrl={resolveAssetUrl(store.overview?.schoolLogo) || `${import.meta.env.BASE_URL}bellora-brand-mark.png`}
         logoAlt={store.overview?.schoolLogo ? 'School logo' : 'BELLORA logo'}
         logoLabel={store.overview?.schoolName || 'BELLORA'}
         logoSubtitle="Teacher Portal"
@@ -236,7 +236,7 @@ export default function TcLayout({ children }) {
           {children}
         </main>
         <footer className="px-6 py-4 text-center text-[11.5px] text-[#829AB1] border-t border-[#e8eef7]">
-          BELLORA School Management System · Teacher Portal · {new Date().getFullYear()}
+          BELLORA · Teacher Portal · {new Date().getFullYear()}
         </footer>
       </div>
 

@@ -6,6 +6,7 @@ import { initials } from '../format'
 import './sa-components.css'
 
 export default function AppSidebar({
+  id,
   sections = [],
   footerItems = [],
   profileTo = '/login',
@@ -53,6 +54,7 @@ export default function AppSidebar({
 
   return (
     <aside
+      id={id}
       className={`fixed left-3 top-3 bottom-3 w-60 z-40 bg-[#102B42] rounded-2xl border border-slate-800/70 flex flex-col overflow-hidden transition-all duration-200 lg:translate-x-0 ${
         drawer ? 'translate-x-0 shadow-2xl' : '-translate-x-[calc(100%+16px)]'
       } ${collapsed ? 'lg:w-[84px]' : 'lg:w-60'}`}

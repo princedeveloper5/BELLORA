@@ -39,6 +39,7 @@ export default function DashboardLayout({ children }) {
   return (
     <div className="min-h-screen" style={{ background: 'var(--panta-bg)', color: 'var(--panta-text)' }}>
       <Sidebar
+        id="dos-primary-navigation"
         collapsed={collapsed}
         drawer={drawer}
         onNavigate={closeDrawer}
@@ -50,7 +51,11 @@ export default function DashboardLayout({ children }) {
       ) : null}
 
       <div className={`flex flex-col min-h-screen transition-[padding] duration-200 ${collapsed ? 'lg:pl-24' : 'lg:pl-64'}`}>
-        <TopHeader onToggleSidebar={toggleSidebar} onLogout={() => setConfirmLogout(true)} />
+        <TopHeader
+          onToggleSidebar={toggleSidebar}
+          navigationExpanded={window.innerWidth < 1024 ? drawer : !collapsed}
+          onLogout={() => setConfirmLogout(true)}
+        />
 
         {store.error ? (
           <div

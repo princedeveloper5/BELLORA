@@ -1,5 +1,5 @@
-export default function BelloraLogo({ collapsed = false, logoUrl, alt = 'School logo', label = 'BELLORA', subtitle = 'School Management System' }) {
-  const fallback = `${import.meta.env.BASE_URL}bellora-logo.svg`
+export default function BelloraLogo({ collapsed = false, logoUrl, alt = 'School logo', label = 'BELLORA', subtitle = 'Smarter Scheduling, Better Learning' }) {
+  const fallback = `${import.meta.env.BASE_URL}bellora-brand-mark.png`
   const src = logoUrl || fallback
 
   return (

@@ -4,7 +4,7 @@ import api from '@/stores/api'
 import './ForgotPassword.css'
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const logoUrl = `${import.meta.env.BASE_URL}bellora-title-logo.svg`
+const logoUrl = `${import.meta.env.BASE_URL}bellora-brand-mark.png`
 
 export default function ForgotPassword() {
   const navigate = useNavigate()
@@ -151,7 +151,7 @@ export default function ForgotPassword() {
       <div className={`forgot-card w-100${loading ? ' is-loading' : ''}`}>
         <div className="forgot-card-header">
           <div className="brand-login-mark">
-            <img className="brand-login-logo" src={logoUrl} alt="School logo" />
+            <img className="brand-login-logo" src={logoUrl} alt="BELLORA logo" />
           </div>
           <h1 className="auth-title mb-0">BELLORA</h1>
         </div>
@@ -182,7 +182,7 @@ export default function ForgotPassword() {
                     <input
                       id="email"
                       value={email}
-                      onChange={(event) => setEmail(event.target.value.trim())}
+                      onChange={(event) => setEmail(event.target.value)}
                       type="email"
                       placeholder="Enter your registered email"
                       required
@@ -270,7 +270,7 @@ export default function ForgotPassword() {
 
           <div className="create-row">
             <span>New user?</span>
-            <Link to="/teacher/register">Create an Account</Link>
+            <Link to="/register">Create an Account</Link>
           </div>
         </form>
       </div>

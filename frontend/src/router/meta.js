@@ -1,7 +1,8 @@
 const ROUTE_META = [
   ['/login', 'Sign In', 'BELLORA · Authentication'],
   ['/choose-role', 'Choose Your Role', 'BELLORA · Authentication'],
-  ['/register', 'Create Account', 'BELLORA · Registration'],
+  ['/register', 'Choose Account Type', 'BELLORA · Registration'],
+  ['/register/teacher', 'Teacher Registration', 'BELLORA · Registration'],
   ['/dos/register', 'Director Registration', 'BELLORA · Registration'],
   ['/forgot-password', 'Reset Access', 'BELLORA · Authentication'],
   ['/reset-password', 'Set New Password', 'BELLORA · Authentication'],

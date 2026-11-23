@@ -11,15 +11,7 @@ export default function Preloader({ loading }) {
       aria-label="Loading BELLORA"
     >
       <div className="preloader-brand" aria-hidden="true">
-        <div className="preloader-calendar">
-          <i />
-          <b />
-          <span />
-        </div>
-        <div>
-          <strong>BELLORA</strong>
-          <small>School Management System</small>
-        </div>
+        <img src={`${import.meta.env.BASE_URL}bellora-brand-lockup.png`} alt="" />
       </div>
       <div className="preloader-progress" aria-label="Loading">
         <span className="loader-ring" aria-hidden="true" />

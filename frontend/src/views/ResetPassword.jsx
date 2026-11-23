@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Eye, EyeOff } from 'lucide-react'
+import { CheckCircle2, Eye, EyeOff, LockKeyhole, ShieldCheck } from 'lucide-react'
 import api from '@/stores/api'
 import './ResetPassword.css'
 
@@ -31,12 +31,7 @@ export default function ResetPassword() {
 
     setLoading(true)
     try {
-      const response = await api.post('/auth/reset-password', {
-        email,
-        code,
-        password,
-        confirmPassword
-      })
+      const response = await api.post('/auth/reset-password', { email, code, password, confirmPassword })
       sessionStorage.removeItem('resetEmail')
       sessionStorage.removeItem('resetCode')
       setSuccess(response.data.message || 'Password reset successful.')
@@ -53,130 +48,82 @@ export default function ResetPassword() {
     const storedCode = sessionStorage.getItem('resetCode') || ''
     setEmail(storedEmail)
     setCode(storedCode)
-    if (!storedEmail || !storedCode) {
-      setError('Reset session not found. Please request a new OTP.')
-    }
+    if (!storedEmail || !storedCode) setError('Reset session not found. Please request a new verification code.')
   }, [])
 
   return (
-    <div
-      className="min-vh-100 d-flex align-items-center justify-content-center p-3 reset-page"
-      style={{ background: 'linear-gradient(135deg, #12304a 0%, #0f9d8a 100%)' }}
-    >
-      <div className="bg-white rounded-3 shadow-lg w-100" style={{ maxWidth: 450 }}>
-        {/* Header */}
-        <div className="text-center mb-4 p-4 pb-3">
-          <div
-            className="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-2 brand-login-mark"
-            style={{ width: 64, height: 64, background: '#e7f5f2', border: '1px solid rgba(15, 157, 138, .18)' }}
-          >
-            <img className="brand-login-logo" src={`${import.meta.env.BASE_URL}bellora-logo.svg`} alt="BELLORA logo" />
+    <main className="reset-page">
+      <section className="reset-card" aria-labelledby="reset-title">
+        <aside className="reset-aside">
+          <div>
+            <div className="reset-brand-mark">
+              <img className="brand-login-logo" src={`${import.meta.env.BASE_URL}bellora-brand-mark.png`} alt="BELLORA logo" />
+            </div>
+            <h1 id="reset-title">A fresh start for your account.</h1>
+            <p>Choose a new password to secure your BELLORA workspace and get back to the work that matters.</p>
+          </div>
+          <div className="reset-privacy"><ShieldCheck size={16} aria-hidden="true" /> Your verification code is confirmed.</div>
+        </aside>
+
+        <div className="reset-form">
+          <h2>Create a new password</h2>
+          <p>Use at least 6 characters. A longer passphrase is harder to guess.</p>
+
+          <div className="reset-identity">
+            <CheckCircle2 size={19} aria-hidden="true" />
+            <div><span>Verified account</span><strong>{email || 'Your account'}</strong></div>
           </div>
 
-          <h1 className="h3 fw-bold text-dark mb-1">Reset Password</h1>
+          <form onSubmit={resetPassword}>
+            <div className="reset-field">
+              <label htmlFor="password">New password</label>
+              <div className="input-group">
+                <input
+                  id="password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter a new password"
+                  autoComplete="new-password"
+                  required
+                  className="form-control"
+                />
+                <button type="button" className="password-toggle" aria-label={showPassword ? 'Hide password' : 'Show password'} onClick={() => setShowPassword((prev) => !prev)}>
+                  {showPassword ? <EyeOff size={18} aria-hidden="true" /> : <Eye size={18} aria-hidden="true" />}
+                </button>
+              </div>
+            </div>
 
-          <div className="mt-2 d-flex align-items-center justify-content-center gap-2 secure-row">
-            <span className="secure-lock" aria-hidden="true">🔐</span>
-            <span className="text-muted small fw-semibold">Secure Password Reset</span>
-          </div>
+            <div className="reset-field">
+              <label htmlFor="confirmPassword">Confirm new password</label>
+              <div className="input-group">
+                <input
+                  id="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(event) => setConfirmPassword(event.target.value)}
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  placeholder="Enter it one more time"
+                  autoComplete="new-password"
+                  required
+                  className="form-control"
+                />
+                <button type="button" className="password-toggle" aria-label={showConfirmPassword ? 'Hide password' : 'Show password'} onClick={() => setShowConfirmPassword((prev) => !prev)}>
+                  {showConfirmPassword ? <EyeOff size={18} aria-hidden="true" /> : <Eye size={18} aria-hidden="true" />}
+                </button>
+              </div>
+            </div>
+
+            {error ? <div className="alert alert-danger" role="alert">{error}</div> : null}
+            {success ? <div className="alert alert-success" role="status">{success}</div> : null}
+
+            <button type="submit" disabled={loading || !email || !code} className="reset-submit">
+              {loading ? 'Updating password…' : <><LockKeyhole size={16} aria-hidden="true" /> Update password</>}
+            </button>
+          </form>
+
+          <div className="reset-footer"><Link to="/forgot-password">Request a new verification code</Link></div>
         </div>
-
-        {/* Form */}
-        <form onSubmit={resetPassword} className="px-4 pb-4">
-          <div className="alert alert-info d-flex align-items-center gap-2 mb-3">
-            <span>✓</span>
-            <div>
-              <strong>Email verified</strong>
-              <br />
-              <small>{email || 'your account'}</small>
-            </div>
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label fw-medium">New Password</label>
-            <div className="input-group">
-              <input
-                id="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Minimum 6 characters"
-                required
-                className="form-control form-control-lg"
-              />
-              <button
-                type="button"
-                className="btn btn-outline-secondary password-toggle"
-                onClick={() => setShowPassword((prev) => !prev)}
-              >
-                {showPassword ? <EyeOff size={18} strokeWidth={2.2} aria-hidden="true" /> : <Eye size={18} strokeWidth={2.2} aria-hidden="true" />}
-              </button>
-            </div>
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="confirmPassword" className="form-label fw-medium">Confirm Password</label>
-            <div className="input-group">
-              <input
-                id="confirmPassword"
-                value={confirmPassword}
-                onChange={(event) => setConfirmPassword(event.target.value)}
-                type={showConfirmPassword ? 'text' : 'password'}
-                placeholder="Repeat password"
-                required
-                className="form-control form-control-lg"
-              />
-              <button
-                type="button"
-                className="btn btn-outline-secondary password-toggle"
-                onClick={() => setShowConfirmPassword((prev) => !prev)}
-              >
-                {showConfirmPassword ? <EyeOff size={18} strokeWidth={2.2} aria-hidden="true" /> : <Eye size={18} strokeWidth={2.2} aria-hidden="true" />}
-              </button>
-            </div>
-          </div>
-
-          {/* Error Message */}
-          {error ? (
-            <div className="alert alert-danger" role="alert">
-              {error}
-            </div>
-          ) : null}
-
-          {/* Success Message */}
-          {success ? (
-            <div className="alert alert-success" role="alert">
-              {success}
-            </div>
-          ) : null}
-
-          {/* Submit Button */}
-          <button type="submit" disabled={loading || !email || !code} className="btn btn-primary-custom btn-lg w-100 fw-semibold">
-            {loading ? (
-              <span className="d-flex align-items-center justify-content-center gap-2">
-                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Updating...
-              </span>
-            ) : (
-              <span>Update Password</span>
-            )}
-          </button>
-        </form>
-
-        {/* Footer Links */}
-        <div className="text-center px-4 pb-4">
-          <Link to="/forgot-password" className="small text-primary fw-semibold text-decoration-none">
-            Request a new OTP
-          </Link>
-        </div>
-
-        <div className="text-center pb-3">
-          <p className="small text-muted mb-0">
-            © 2026 BELLORA · All rights reserved
-          </p>
-          <p className="small text-muted mb-0">Version 1.0</p>
-        </div>
-      </div>
-    </div>
+      </section>
+    </main>
   )
 }

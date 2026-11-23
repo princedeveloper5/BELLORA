@@ -7,7 +7,7 @@ import { dosStore, dosSelectors } from '../dosStore'
 import { useStore } from '@/stores/useStore'
 import { useClickOutside } from '@/hooks/useClickOutside'
 
-export default function TopHeader({ onToggleSidebar, onLogout }) {
+export default function TopHeader({ onToggleSidebar, navigationExpanded, onLogout }) {
   const store = useStore(dosStore)
   const navigate = useNavigate()
   const [query, setQuery] = useState('')
@@ -38,7 +38,10 @@ export default function TopHeader({ onToggleSidebar, onLogout }) {
       <button
         type="button"
         className="bg-slate-100 hover:bg-slate-200 text-slate-700 p-2 rounded-lg transition-colors shrink-0"
-        aria-label="Toggle sidebar"
+        aria-label={navigationExpanded ? 'Collapse navigation' : 'Open navigation'}
+        aria-expanded={navigationExpanded}
+        aria-controls="dos-primary-navigation"
+        title={navigationExpanded ? 'Collapse navigation' : 'Open navigation'}
         onClick={onToggleSidebar}
       >
         <Menu size={19} />

@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
-import { CircleUserRound, KeyRound, SlidersHorizontal, LoaderCircle } from 'lucide-react'
+import { Camera, CircleUserRound, KeyRound, SlidersHorizontal, LoaderCircle, X } from 'lucide-react'
 import DashboardLayout from './components/DashboardLayout'
 import PasswordStrength from '@/sa/components/PasswordStrength'
-import { dosStore, dosActions } from './dosStore'
-import { useStore } from '@/stores/useStore'
+import { dosActions } from './dosStore'
 import { useAuthStore } from '@/stores/authStore'
+import api from '@/stores/api'
+import { resolveAssetUrl } from '@/utils/resolveAssetUrl'
+import './DosSettings.css'
 
 const tabs = [
   { key: 'profile', label: 'Profile' },
@@ -21,15 +23,16 @@ const notifPrefs = [
 ]
 
 export default function DosSettings() {
-  const store = useStore(dosStore)
   const authStore = useAuthStore()
   const [tab, setTab] = useState('profile')
   const [saving, setSaving] = useState(false)
+  const [uploadingPhoto, setUploadingPhoto] = useState(false)
 
   const [profile, setProfile] = useState({
     name: authStore.user?.name || authStore.user?.full_name || '',
     email: authStore.user?.email || '',
-    phone: authStore.user?.phone || ''
+    phone: authStore.user?.phone || '',
+    profile_photo: authStore.user?.profile_photo || ''
   })
   const [pwd, setPwd] = useState({ current: '', next: '', confirm: '' })
   const [constraints, setConstraints] = useState({
@@ -58,13 +61,11 @@ export default function DosSettings() {
   }, [])
 
   function togglePref(key) {
-    setPrefs((prev) => ({ ...prev, [key]: !prev[key] }))
+    const nextPrefs = { ...prefs, [key]: !prefs[key] }
+    setPrefs(nextPrefs)
+    localStorage.setItem('dos-notif-prefs', JSON.stringify(nextPrefs))
+    dosActions.success('Notification preference saved.')
   }
-
-  useEffect(() => {
-    localStorage.setItem('dos-notif-prefs', JSON.stringify(prefs))
-    dosActions.success('Notification preferences saved.')
-  }, [prefs])
 
   async function saveProfile() {
     const nextErrors = {}
@@ -74,12 +75,50 @@ export default function DosSettings() {
     if (Object.keys(nextErrors).length) return
     setSaving(true)
     try {
-      await authStore.updateProfile({ name: profile.name, full_name: profile.name, email: profile.email, phone: profile.phone })
+      const result = await authStore.updateProfile({
+        name: profile.name,
+        full_name: profile.name,
+        email: profile.email,
+        phone: profile.phone,
+        profile_photo: profile.profile_photo
+      }, { showGlobalNotification: false })
+      if (!result.success) throw new Error(result.error || 'Profile update failed.')
       dosActions.success('Your profile has been updated.', 'Profile saved')
     } catch (e) {
       dosActions.apiError(e)
     } finally {
       setSaving(false)
+    }
+  }
+
+  async function uploadProfilePhoto(event) {
+    const file = event.target.files?.[0]
+    if (!file) return
+    if (!file.type.startsWith('image/')) {
+      dosActions.error('Choose an image file.', 'Invalid file')
+      event.target.value = ''
+      return
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      dosActions.error('Choose an image smaller than 2 MB.', 'Image is too large')
+      event.target.value = ''
+      return
+    }
+
+    setUploadingPhoto(true)
+    try {
+      const payload = new FormData()
+      payload.append('photo', file)
+      const response = await api.post('/upload/profile-photo', payload, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+      setProfileField('profile_photo', response.data.photo?.path || '')
+      dosActions.success('Photo uploaded. Save your profile to apply it.', 'Photo ready')
+    } catch (error) {
+      dosActions.error(error.response?.data?.message || 'Photo upload failed.', 'Upload failed')
+    } finally {
+      setUploadingPhoto(false)
+      event.target.value = ''
     }
   }
 
@@ -91,11 +130,19 @@ export default function DosSettings() {
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length) return
     setSaving(true)
-    setTimeout(() => {
-      setSaving(false)
+    try {
+      const response = await api.put('/auth/change-password', {
+        currentPassword: pwd.current,
+        newPassword: pwd.next
+      }, { showGlobalNotification: false })
       setPwd({ current: '', next: '', confirm: '' })
-      dosActions.success('Your password has been changed.', 'Security updated')
-    }, 500)
+      setErrors({})
+      dosActions.success(response.data.message || 'Your password has been changed.', 'Security updated')
+    } catch (error) {
+      dosActions.apiError(error, 'Password could not be changed.')
+    } finally {
+      setSaving(false)
+    }
   }
 
   async function saveConstraints() {
@@ -144,6 +191,31 @@ export default function DosSettings() {
             <h3 className="sa-card-title">
               <CircleUserRound size={16} style={{ color: 'var(--panta-teal)' }} /> Profile
             </h3>
+            <div className="dos-profile-photo-row">
+              <div className="dos-profile-photo">
+                {profile.profile_photo ? (
+                  <img src={resolveAssetUrl(profile.profile_photo)} alt="Profile" />
+                ) : (
+                  <span>{(profile.name || profile.email || 'D').split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase()}</span>
+                )}
+              </div>
+              <div className="dos-profile-photo-copy">
+                <strong>Profile photo</strong>
+                <span>Use a clear image so your colleagues can recognize you.</span>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  <label className="sa-btn soft sm dos-photo-upload" aria-disabled={uploadingPhoto}>
+                    {uploadingPhoto ? <LoaderCircle size={14} className="animate-spin" /> : <Camera size={14} />}
+                    {uploadingPhoto ? 'Uploading…' : 'Choose photo'}
+                    <input type="file" accept="image/*" disabled={uploadingPhoto} onChange={uploadProfilePhoto} />
+                  </label>
+                  {profile.profile_photo ? (
+                    <button type="button" className="sa-btn ghost sm" onClick={() => setProfileField('profile_photo', '')}>
+                      <X size={14} /> Remove
+                    </button>
+                  ) : null}
+                </div>
+              </div>
+            </div>
             <div>
               <label className="sa-label" htmlFor="ds-name">
                 Full name <span className="req">*</span>

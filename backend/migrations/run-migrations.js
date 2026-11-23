@@ -33,6 +33,10 @@ const migrations = [
   {
     name: '010_academic_results',
     modulePath: './010_academic_results'
+  },
+  {
+    name: '011_dos_console_tables',
+    modulePath: './011_dos_console_tables'
   }
 ];
 

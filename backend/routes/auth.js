@@ -647,6 +647,41 @@ router.post('/reset-password', [
   }
 });
 
+router.put('/change-password', auth, [
+  body('currentPassword').notEmpty().withMessage('Current password is required'),
+  body('newPassword').isLength({ min: 8 }).withMessage('New password must be at least 8 characters')
+], async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    if (req.user.role !== 'dos') {
+      return res.status(403).json({ message: 'This password change route is for Director of Studies accounts.' });
+    }
+
+    const user = await User.findByEmail(req.user.email);
+    const currentPasswordMatches = await User.comparePassword(
+      req.body.currentPassword,
+      user?.password_hash || user?.password
+    );
+    if (!currentPasswordMatches) {
+      return res.status(400).json({ message: 'Current password is incorrect.' });
+    }
+
+    if (await User.comparePassword(req.body.newPassword, user.password_hash || user.password)) {
+      return res.status(400).json({ message: 'Choose a password you have not used for this account.' });
+    }
+
+    await User.updatePassword(user.id, req.body.newPassword);
+    return res.json({ message: 'Password changed successfully.' });
+  } catch (error) {
+    console.error('DOS password change failed:', error);
+    return res.status(500).json({ message: 'Unable to change password right now.' });
+  }
+});
+
 router.put('/me', auth, [
   body('username').optional().trim().isLength({ min: 3 }).withMessage('Username must be at least 3 characters'),
   body('full_name').optional().trim().isLength({ min: 3 }).withMessage('Full name must be at least 3 characters'),

@@ -138,7 +138,7 @@ export default function SaLayout({ children }) {
         drawer={drawer}
         onNavigate={closeDrawer}
         onLogout={() => setConfirmLogout(true)}
-        logoUrl={resolveAssetUrl(store.settings?.school_logo_url) || `${import.meta.env.BASE_URL}bellora-logo.svg`}
+        logoUrl={resolveAssetUrl(store.settings?.school_logo_url) || `${import.meta.env.BASE_URL}bellora-brand-mark.png`}
         logoAlt={store.settings?.school_logo_url ? 'School logo' : 'BELLORA logo'}
         logoLabel="BELLORA"
         logoSubtitle="Super Admin Console"
@@ -305,7 +305,7 @@ export default function SaLayout({ children }) {
         <main className="grow p-3 sm:p-5 lg:p-6 max-w-[1600px] w-full mx-auto">{children}</main>
 
         <footer className="px-6 py-4 text-center text-[11.5px] text-[#829AB1] border-t border-[#e8eef7]">
-          BELLORA School Management System · Super Admin Console · {new Date().getFullYear()}
+          BELLORA · Super Admin Console · {new Date().getFullYear()}
         </footer>
       </div>
 

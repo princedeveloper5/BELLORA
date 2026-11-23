@@ -124,15 +124,15 @@ export default function Login() {
 
       <section className="login-hero" aria-label="BELLORA overview">
         <div className="login-brand">
-          <img className="hero-brand-mark" src={`${import.meta.env.BASE_URL}bellora-logo.svg`} alt="BELLORA logo" />
-          <div>
-            <strong>BELLORA</strong>
-            <span>School Management System</span>
-          </div>
+          <img
+            className="hero-brand-lockup"
+            src={`${import.meta.env.BASE_URL}bellora-brand-lockup.png`}
+            alt="BELLORA — Smarter Scheduling, Better Learning"
+          />
         </div>
 
         <div className="hero-copy">
-          <p className="hero-kicker">Smarter Scheduling. Better Learning.</p>
+          <p className="hero-kicker">A clearer way to run your school.</p>
           <p>BELLORA helps schools manage timetables, users, classes and academic activities efficiently — all in one place.</p>
         </div>
 
@@ -160,7 +160,7 @@ export default function Login() {
               <input
                 id="email"
                 value={form.email}
-                onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value.trim() }))}
+                onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
                 type="email"
                 required
                 className={`form-control${emailError ? ' is-invalid' : ''}`}

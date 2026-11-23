@@ -5,7 +5,7 @@ import { FIXED_DAYS, buildFixedTimetableRows, isBreakEntry } from './fixedTimeta
 import { resolveAssetUrl } from './resolveAssetUrl'
 
 const DAYS = FIXED_DAYS
-const FALLBACK_LOGO_URL = `${import.meta.env.BASE_URL}bellora-logo.svg`
+const FALLBACK_LOGO_URL = `${import.meta.env.BASE_URL}bellora-brand-mark.png`
 
 const safeFileName = (value) => String(value || 'Timetable').replace(/[\\/:*?"<>|]+/g, '').replace(/\s+/g, '_')
 

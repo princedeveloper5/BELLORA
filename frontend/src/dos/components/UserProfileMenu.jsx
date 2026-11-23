@@ -1,15 +1,12 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ChevronDown, CircleUserRound, LogOut, Settings, ShieldCheck } from 'lucide-react'
+import { ChevronDown, LogOut, Settings } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import { initials } from '@/sa/format'
 import { useClickOutside } from '@/hooks/useClickOutside'
+import { resolveAssetUrl } from '@/utils/resolveAssetUrl'
 
-const links = [
-  { label: 'My Profile', to: '/dos/settings', icon: CircleUserRound },
-  { label: 'Settings', to: '/dos/settings', icon: Settings },
-  { label: 'Security', to: '/dos/settings', icon: ShieldCheck }
-]
+const links = [{ label: 'Settings', to: '/dos/settings', icon: Settings }]
 
 export default function UserProfileMenu({ onLogout }) {
   const auth = useAuthStore()
@@ -19,6 +16,7 @@ export default function UserProfileMenu({ onLogout }) {
 
   const userName = auth.user?.name || auth.user?.full_name || 'Director'
   const userEmail = auth.user?.email || ''
+  const profilePhoto = resolveAssetUrl(auth.user?.profile_photo)
 
   return (
     <div className="relative" ref={root}>
@@ -35,7 +33,7 @@ export default function UserProfileMenu({ onLogout }) {
             className="w-9 h-9 rounded-full grid place-items-center text-[13px] font-bold text-white"
             style={{ background: 'linear-gradient(135deg, var(--panta-teal), var(--panta-sidebar))' }}
           >
-            {initials(userName)}
+            {profilePhoto ? <img className="h-full w-full rounded-full object-cover" src={profilePhoto} alt="" /> : initials(userName)}
           </span>
           <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#18B981] border-2 border-white" title="Online" />
         </span>

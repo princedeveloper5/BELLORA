@@ -9,7 +9,7 @@ import { dosStore } from '../dosStore'
 import { useStore } from '@/stores/useStore'
 import { useAuthStore } from '@/stores/authStore'
 
-export default function Sidebar({ collapsed = false, drawer = false, onNavigate, onLogout }) {
+export default function Sidebar({ id, collapsed = false, drawer = false, onNavigate, onLogout }) {
   const location = useLocation()
   const store = useStore(dosStore)
   const auth = useAuthStore()
@@ -52,6 +52,7 @@ export default function Sidebar({ collapsed = false, drawer = false, onNavigate,
 
   return (
     <AppSidebar
+      id={id}
       sections={sections}
       footerItems={footerItems}
       profileTo="/dos/settings"
@@ -62,7 +63,7 @@ export default function Sidebar({ collapsed = false, drawer = false, onNavigate,
       drawer={drawer}
       onNavigate={onNavigate}
       onLogout={onLogout}
-      logoUrl={resolveAssetUrl(store.overview?.schoolLogo) || `${import.meta.env.BASE_URL}bellora-logo.svg`}
+      logoUrl={resolveAssetUrl(store.overview?.schoolLogo) || `${import.meta.env.BASE_URL}bellora-brand-mark.png`}
       logoAlt={store.overview?.schoolLogo ? 'School logo' : 'BELLORA logo'}
       logoLabel={store.overview?.schoolName || 'BELLORA'}
       logoSubtitle={store.overview?.schoolCode || ''}
