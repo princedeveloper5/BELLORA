@@ -194,11 +194,6 @@ export default function DosClasses() {
             label={`Actions for ${row.class_name}`}
           />
         )}
-        emptyAction={
-          <button type="button" className="sa-btn primary sm panta-primary-btn" onClick={openAdd}>
-            <Plus size={15} /> Add Class
-          </button>
-        }
       />
 
       {/* Add / Edit modal */}

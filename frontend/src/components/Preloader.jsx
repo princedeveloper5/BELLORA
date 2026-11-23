@@ -18,7 +18,7 @@ export default function Preloader({ loading }) {
         </div>
         <div>
           <strong>BELLORA</strong>
-          <small>Timetable Management System</small>
+          <small>School Management System</small>
         </div>
       </div>
       <div className="preloader-progress" aria-label="Loading">

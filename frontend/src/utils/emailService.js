@@ -1,7 +1,7 @@
 import api from '@/lib/api';
 
 /**
- * Email Service - Vue.js utility for calling backend email endpoints
+ * Email service helpers for calling backend email endpoints.
  */
 
 /**

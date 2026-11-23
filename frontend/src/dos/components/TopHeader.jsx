@@ -1,23 +1,20 @@
 import { useRef, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Menu, School, Search } from 'lucide-react'
 import NotificationMenu from './NotificationMenu'
 import UserProfileMenu from './UserProfileMenu'
 import { dosStore, dosSelectors } from '../dosStore'
 import { useStore } from '@/stores/useStore'
 import { useClickOutside } from '@/hooks/useClickOutside'
-import { routeMeta } from '@/router/meta'
 
 export default function TopHeader({ onToggleSidebar, onLogout }) {
   const store = useStore(dosStore)
-  const location = useLocation()
   const navigate = useNavigate()
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
   const searchBox = useRef(null)
   useClickOutside(searchBox, () => setOpen(false))
 
-  const { title } = routeMeta(location.pathname)
   const results = (() => {
     const q = query.toLowerCase()
     if (!q) return []
@@ -48,10 +45,7 @@ export default function TopHeader({ onToggleSidebar, onLogout }) {
       </button>
 
       <div className="min-w-0 hidden lg:block shrink-0">
-        <p className="text-[12.5px] font-bold truncate leading-4" style={{ color: 'var(--panta-text)' }}>
-          Home <span className="text-[#C6D4E3] mx-1">/</span> <span style={{ color: 'var(--panta-teal)' }}>{title}</span>
-        </p>
-        <p className="text-[10.5px] font-medium truncate flex items-center gap-1" style={{ color: 'var(--panta-muted)' }}>
+        <p className="text-[12px] font-semibold truncate flex items-center gap-1" style={{ color: 'var(--panta-muted)' }}>
           <School size={10} className="shrink-0" />
           {store.overview?.schoolName || 'My School'}
           {store.overview?.activeYear ? (

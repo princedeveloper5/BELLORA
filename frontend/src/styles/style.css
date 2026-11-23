@@ -3078,9 +3078,7 @@ body.admin-dark-mode ::-webkit-scrollbar-thumb:hover {
   background: #475569;
 }
 
-/* Final admin dark-surface guard.
-   Route-scoped Vue styles are injected after this file, so these selectors keep
-   enough specificity to beat hard-coded light cards when dark mode is active. */
+/* Final admin dark-surface guard for route-specific cards in dark mode. */
 body:is(.admin-dark-mode, .dark) .main-content :is(
   .page-header,
   .toolbar,

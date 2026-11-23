@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom'
 import { resolveAssetUrl } from '@/utils/resolveAssetUrl'
 import {
   BookOpen, Briefcase, CalendarClock, DoorOpen, FileBarChart, Layers,
@@ -54,6 +55,7 @@ export default function Sidebar({ collapsed = false, drawer = false, onNavigate,
       sections={sections}
       footerItems={footerItems}
       profileTo="/dos/settings"
+      showProfile={false}
       userName={userName}
       roleLabel="Director of Studies"
       collapsed={collapsed}
@@ -63,7 +65,7 @@ export default function Sidebar({ collapsed = false, drawer = false, onNavigate,
       logoUrl={resolveAssetUrl(store.overview?.schoolLogo) || `${import.meta.env.BASE_URL}bellora-logo.svg`}
       logoAlt={store.overview?.schoolLogo ? 'School logo' : 'BELLORA logo'}
       logoLabel={store.overview?.schoolName || 'BELLORA'}
-      logoSubtitle="Director of Studies"
+      logoSubtitle={store.overview?.schoolCode || ''}
     />
   )
 }

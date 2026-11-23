@@ -236,7 +236,7 @@ export default function TcLayout({ children }) {
           {children}
         </main>
         <footer className="px-6 py-4 text-center text-[11.5px] text-[#829AB1] border-t border-[#e8eef7]">
-          BELLORA Timetable Management System · Teacher Portal · {new Date().getFullYear()}
+          BELLORA School Management System · Teacher Portal · {new Date().getFullYear()}
         </footer>
       </div>
 

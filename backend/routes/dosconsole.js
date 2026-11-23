@@ -8,6 +8,7 @@
 const express = require('express');
 const pool = require('../config/database');
 const SystemSetting = require('../models/SystemSetting');
+const Announcement = require('../models/Announcement');
 const { computeConflicts } = require('../services/conflictScan');
 
 const router = express.Router();
@@ -557,6 +558,7 @@ router.delete('/entries/:id', asyncH(async (req, res) => {
 // School announcements (DOS composer; students/teachers read them)
 // ---------------------------------------------------------------------------
 router.get('/announcements', asyncH(async (req, res) => {
+  await Announcement.ensureTable();
   const [rows] = await pool.query(
     `SELECT a.announcement_id, a.title, a.message, a.priority, a.created_at
      FROM announcements a JOIN announcement_targets t ON t.announcement_id = a.announcement_id
@@ -565,6 +567,7 @@ router.get('/announcements', asyncH(async (req, res) => {
 }));
 
 router.post('/announcements', asyncH(async (req, res) => {
+  await Announcement.ensureTable();
   const { title, message, priority = 'Normal' } = req.body || {};
   if (!title || title.trim().length < 3) return res.status(400).json({ message: 'Title is required (3+ characters).' });
   if (!message || message.trim().length < 5) return res.status(400).json({ message: 'Message is required (5+ characters).' });
@@ -585,6 +588,7 @@ router.post('/announcements', asyncH(async (req, res) => {
 }));
 
 router.delete('/announcements/:id', asyncH(async (req, res) => {
+  await Announcement.ensureTable();
   const [r] = await pool.execute(
     `DELETE a, t FROM announcements a JOIN announcement_targets t ON t.announcement_id = a.announcement_id
      WHERE a.announcement_id = ? AND t.school_id = ?`, [req.params.id, schoolOf(req)]);

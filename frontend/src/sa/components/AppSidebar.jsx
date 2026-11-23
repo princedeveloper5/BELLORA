@@ -11,6 +11,7 @@ export default function AppSidebar({
   profileTo = '/login',
   userName = 'User',
   roleLabel = '',
+  showProfile = true,
   collapsed = false,
   drawer = false,
   onNavigate,
@@ -139,7 +140,7 @@ export default function AppSidebar({
       </nav>
 
       <div className="shrink-0 border-t border-slate-800 px-3 py-3 space-y-1">
-        <button
+        {showProfile ? <button
           type="button"
           className={`side-item !py-2.5 ${collapsed ? 'collapsed' : ''}`}
           data-tip={collapsed ? userName : undefined}
@@ -154,7 +155,7 @@ export default function AppSidebar({
               <span className="block text-[10.5px] text-slate-400 truncate">{roleLabel}</span>
             </span>
           ) : null}
-        </button>
+        </button> : null}
 
         {footerItems.map((item) => {
           const Icon = item.icon

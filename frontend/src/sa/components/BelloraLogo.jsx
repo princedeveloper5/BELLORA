@@ -1,4 +1,4 @@
-export default function BelloraLogo({ collapsed = false, logoUrl, alt = 'School logo', label = 'BELLORA', subtitle = 'Timetable Management System' }) {
+export default function BelloraLogo({ collapsed = false, logoUrl, alt = 'School logo', label = 'BELLORA', subtitle = 'School Management System' }) {
   const fallback = `${import.meta.env.BASE_URL}bellora-logo.svg`
   const src = logoUrl || fallback
 
@@ -8,7 +8,7 @@ export default function BelloraLogo({ collapsed = false, logoUrl, alt = 'School 
       {!collapsed ? (
         <div className="leading-tight min-w-0">
           <p className="text-white font-bold text-xl tracking-wide">{label}</p>
-          <p className="text-slate-400 text-xs whitespace-nowrap">{subtitle}</p>
+          {subtitle ? <p className="text-slate-400 text-xs whitespace-nowrap">{subtitle}</p> : null}
         </div>
       ) : null}
     </div>

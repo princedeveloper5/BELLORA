@@ -127,7 +127,7 @@ export default function StLayout({ children }) {
           {children}
         </main>
         <footer className="px-6 py-4 text-center text-[11.5px] border-t border-[var(--panta-border)]" style={{ color: 'var(--panta-muted)' }}>
-          BELLORA Timetable Management System · Student Portal · {new Date().getFullYear()}
+          BELLORA School Management System · Student Portal · {new Date().getFullYear()}
         </footer>
       </div>
 

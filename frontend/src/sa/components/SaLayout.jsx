@@ -305,7 +305,7 @@ export default function SaLayout({ children }) {
         <main className="grow p-3 sm:p-5 lg:p-6 max-w-[1600px] w-full mx-auto">{children}</main>
 
         <footer className="px-6 py-4 text-center text-[11.5px] text-[#829AB1] border-t border-[#e8eef7]">
-          BELLORA Timetable Management System · Super Admin Console · {new Date().getFullYear()}
+          BELLORA School Management System · Super Admin Console · {new Date().getFullYear()}
         </footer>
       </div>
 
